@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="WpfVisualCustomization.UserControlLib.UserControlWithStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="buttonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Yellow" />
+        </Style>
+        <Style x:Key="basedOnStyle1" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+        <!--Allthough you specify button is the base-type, it will not use the button style 
+            of the application you use this control in-->
+        <Style x:Key="basedOnStyle2" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="Green" />
+        </Style>
+        <Style x:Key="styleWithKey" TargetType="Button">
+            <Setter Property="Foreground" Value="Green" />
+        </Style>
+        <!-- Attempting to set event hadler -->
+        <Style x:Key="buttonStyleWithEventHandlerInUserControl" TargetType="Button">
+            <Setter Property="Background" Value="Green" />
+            <EventSetter Event="Click" Handler="GreenButton_Click"/>
+        </Style>
+        <!-- following will not work, because the eventhandler is unknown-->
+        <!--<Style x:Key="buttonStyleWithEventHandlerInClientWindow" TargetType="Button">
+            <Setter Property="Background" Value="Red" />
+            <EventSetter Event="Click" Handler="RedButton_Click"/>
+        </Style>-->
+        <!-- following will not work, because a dynamic resource cannot be used for the BasedOn property-->
+        <!--<Style x:Key="basedOnDynResStyle" TargetType="Button" BasedOn="{DynamicResource myStyle}">
+            <Setter Property="Foreground" Value="Green" />
+        </Style>-->
+        <!-- following will not work, because the resourcespecifier is unknown-->
+        <!--<Style x:Key="basedOnStatResStyle" TargetType="Button" BasedOn="{StaticResource myStyle}">
+            <Setter Property="Foreground" Value="Green" />
+        </Style>-->
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="10">
+            <Button Content="A Custom Control with an Unstyled Button"/>
+            <Button Content="A Custom Control with Styled Button from the Custom Control" Style="{StaticResource buttonStyle}"/>
+            <Button Content="A Custom Control with Styled Button from the Custom Control BasedOn by x:Key" Style="{StaticResource basedOnStyle1}"/>
+            <Button Content="A Custom Control with Styled Button from the Custom Control BasedOn by Type" Style="{StaticResource basedOnStyle2}"/>
+            <Button Content="A Custom Control with Styled Button by using key" Style="{StaticResource styleWithKey}"/>
+            <Button Content="A Custom Control with Styled Handler in User Control" Style="{StaticResource buttonStyleWithEventHandlerInUserControl}"/>
+            <!--<Button Content="A Custom Control with Styled Handler in Client Window" Style="{StaticResource buttonStyleWithEventHandlerInClientWindow}"/>-->
+            <!--<Button Content="A Custom Control with Styled Button basedon style in client application" Style="{StaticResource basedOnDynResStyle}"/>-->
+        </StackPanel>
+    </Grid>
+</UserControl>

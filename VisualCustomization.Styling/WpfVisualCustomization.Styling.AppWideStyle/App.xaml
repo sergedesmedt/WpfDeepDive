@@ -1,0 +1,11 @@
+﻿<Application x:Class="WpfVisualCustomization.AppWideStyle.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- Make all buttons yellow in this application -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Yellow" />
+        </Style>
+    </Application.Resources>
+</Application>

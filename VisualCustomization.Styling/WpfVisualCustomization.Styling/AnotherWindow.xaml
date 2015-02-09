@@ -1,0 +1,11 @@
+﻿<Window x:Class="VisualCustomization.AnotherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AnotherWindow" Height="300" Width="300">
+    <Grid>
+        <StackPanel Margin="10">
+            <!-- although the window is opened from another window with buttons styled to be yellow, this button is not yellow -->
+            <Button Content="I'm not yellow"/>
+        </StackPanel>
+    </Grid>
+</Window>

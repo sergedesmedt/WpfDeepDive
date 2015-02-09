@@ -1,0 +1,68 @@
+﻿<Window x:Class="WpfVisualCustomization.Styling.ItemsControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style x:Key="myItemsStyle">
+            <Setter Property="Control.Background" Value="Red" />
+        </Style>
+        <!-- this will not get applied to the textboxes -->
+        <Style x:Key="myTextBlockStyle">
+            <Setter Property="TextBlock.Background" Value="Red" />
+        </Style>
+        <Style x:Key="myTextBlockStyle2">
+            <Style.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Background" Value="Red" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="myListBoxItemsStyle">
+            <Setter Property="Control.Background" Value="Red" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- There is no background coloring here: the itemstyle is applied to the
+            container which in this case is a ContentPresenter. This class does not
+            have a Background property -->
+        <ItemsControl Grid.Row="0" ItemContainerStyle="{StaticResource myItemsStyle}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection >1,2,3,4,5</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+        <!-- There is background coloring here: the itemstyle is applied to the
+            container which in this case is the Buttons themselves. If the itemssource
+            contains Controls, then no ContentPresenter controls are created, but the
+            controls themselves are used directly-->
+        <ItemsControl Grid.Row="1" ItemContainerStyle="{StaticResource myItemsStyle}" >
+            <Button Content="A button" />
+            <Button Content="A button" />
+            <Button Content="A button" />
+        </ItemsControl>
+        <!-- still no styling applied to the controls displaying the values -->
+        <ItemsControl Grid.Row="2" ItemContainerStyle="{StaticResource myTextBlockStyle}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection>10,20,30,40,50</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+        <!-- aha: if we use nested styles we do succeed!!! -->
+        <ItemsControl Grid.Row="3" ItemContainerStyle="{StaticResource myTextBlockStyle2}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection>10,20,30,40,50</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+        <!-- A ListBow wraps its data inside a ListBoxItem which does have a background property -->
+        <ListBox Grid.Row="4" ItemContainerStyle="{StaticResource myListBoxItemsStyle}">
+            <ItemsControl.ItemsSource>
+                <Int32Collection>100,200,300,400,500</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ListBox>
+    </Grid>
+</Window>

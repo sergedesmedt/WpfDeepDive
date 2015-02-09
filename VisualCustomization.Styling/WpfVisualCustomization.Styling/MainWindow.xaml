@@ -1,0 +1,265 @@
+﻿<Window x:Class="VisualCustomization.MainWindow"
+        xmlns:CustomControlLib="clr-namespace:WpfVisualCustomization.CustomControlLib;assembly=WpfVisualCustomization.CustomControlLib"  
+        xmlns:UserControlLib="clr-namespace:WpfVisualCustomization.UserControlLib;assembly=WpfVisualCustomization.UserControlLib"  
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:t="clr-namespace:VisualCustomization"
+        xmlns:slib="clr-namespace:WpfVisualCustomization.Styling.StyleLib;assembly=WpfVisualCustomization.Styling.StyleLib"
+        Title="MainWindow" Height="694.027" Width="526.194">
+    <Window.Resources>
+        <!-- ========================== -->
+        <!-- simple examples which work -->
+        <!-- make all buttons yellow in this window -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Yellow" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Background" Value="Red" />
+        </Style>
+        <!-- Make all togglebuttons yellow in this window -->
+        <Style TargetType="ToggleButton">
+            <Setter Property="Background" Value="#FFCDCD28" />
+        </Style>
+        <!-- Make all labels yellow-ish in this window: following has the same effect as specifying the TargetType -->
+        <Style x:Key="{x:Type Label}">
+            <Setter Property="Label.Background" Value="#FFAEAE46" />
+        </Style>
+        <!-- this style will only be applied to buttons referencing this style through the key -->
+        <Style x:Key="myStyle" TargetType="Button">
+            <Setter Property="Background" Value="Orange" />
+        </Style>
+        <!-- this is a completely new style and doesn't know anything about myStyle 
+            thus, applying it will not set the buttons background, but only its borderbrush
+        -->
+        <Style x:Key="myOtherStyle" TargetType="Button">
+            <Setter Property="BorderBrush" Value="Red" />
+        </Style>
+        <!-- this style also sets the background because its based on another style defining the background 
+	        the base style is defined through its type: in this case the Yellow background will be used -->
+        <Style x:Key="myBasedOnStyleThroughType" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="BorderBrush" Value="Red" />
+        </Style>
+        <!-- this style also sets the background because its based on another style defining the background 
+		    the base style is defined through it's x:Key: in this case the Orange background will be used -->
+        <Style x:Key="myBasedOnStyleThroughKey" TargetType="Button" BasedOn="{StaticResource myStyle}">
+            <Setter Property="BorderBrush" Value="Red" />
+        </Style>
+        <!-- we can also set eventhandlers through styles -->
+        <Style x:Key="myStyleWithEvent" TargetType="Button">
+            <EventSetter Event="Click" Handler="BrownButton_Click" />
+        </Style>
+        <!-- ========================== -->
+        <!---->
+        <!-- ========================== -->
+        <!-- this may not do what you expect (or it may) -->
+        <!-- allthough we define the targettype as control, this will NOT get automatically
+            applied to types inheriting from control -->
+        <Style TargetType="Control">
+            <Setter Property="Control.Background" Value="CadetBlue" />
+        </Style>
+        <!-- by providing a key, we can now applied it to derived controls, like a button, etc... -->
+        <Style x:Key="myStyleForGenericControl" TargetType="Control">
+            <Setter Property="Background" Value="Fuchsia" />
+        </Style>
+        <!-- When not supplying the targettype, you must explicitely provide it in the setter -->
+        <Style x:Key="myStyleNoTargetType">
+             <Setter Property="Control.Background" Value="Brown" />
+        </Style>
+        <!-- can we mix source classes ? -->
+        <Style x:Key="myStyleMixedControlType">
+            <!-- The button background definition will also alter the background of other controls to which this style is applied -->
+            <Setter Property="Button.Background" Value="Brown" />
+            <!-- The label borderthickness definition will be ignored for any controls without this property -->
+            <Setter Property="Label.BorderThickness" Value="3" />
+        </Style>
+        <Style x:Key="myStyleWithEvent2" TargetType="t:CustomButtonWithEventhandler">
+            <EventSetter Event="Click" Handler="CustomButtonWithEventhandler_Click"/>
+        </Style>
+        <Style x:Key="styleWithKey" TargetType="Button">
+            <Setter Property="Foreground" Value="Brown" />
+        </Style>
+        <!-- ========================== -->
+        <!---->
+        <!-- ========================== -->
+        <!-- this will not even compile -->
+        <Style x:Key="aNotCompileableSample1" TargetType="Control">
+            <!-- Following will not work or compile: we cannot set a non-existing property -->
+            <!--<Setter Property="NonExistingProperty" Value="SomeValue" />-->
+        </Style>
+        <!-- When not supplying the targettype, you must explicitely provide it in the setter -->
+        <Style x:Key="aNotCompileableSample2">
+            <!-- Following will not work or compile: WPF doesn't know to what property to apply the value -->
+            <!--<Setter Property="Background" Value="Brown" />-->
+        </Style>
+        <!-- ========================== -->
+    </Window.Resources>
+    <ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="10">
+            <TextBox Text="TextBox with no styling, neither from the Control style"></TextBox>
+            <TextBlock Text="TextBlock with styling through it's type"></TextBlock>
+            <Button Content="Button with a style applied through its type"/>
+            <Button>
+                <Button.Style>
+                    <Style>
+                        <Setter Property="Button.Background" Value="Fuchsia" />
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    A button with a direct style
+                </Button.Content>
+            </Button>
+            <Label >Label with a style applied through its type (by using it as a key)</Label>
+            <Button Content="Button with background from style" Style="{StaticResource myStyle}" />
+            <Button Content="Button with (only) border from style" Style="{StaticResource myOtherStyle}" />
+            <Button Content="Button with border from style and backgound from basedon style" Style="{StaticResource myBasedOnStyleThroughType}" />
+            <Button Content="Button with border from style and backgound from basedon style" Style="{StaticResource myBasedOnStyleThroughKey}" />
+            <Button Content="Button (with action)" Click="Button_Click"/>
+            <Button Content="Button (with action from style)" Style="{StaticResource myStyleWithEvent}" />
+            <Button Content="Button (with action from style but overridden)" Style="{StaticResource myStyleWithEvent}" Click="Button_Click"/>
+            <t:CustomButtonWithEventhandler Content="CustomButton (with action from style)" Style="{StaticResource myStyleWithEvent2}" />
+            <Button Content="Button with applied style for base type through its key" Style="{StaticResource myStyleForGenericControl}"/>
+            <TextBox Text="Textbox with same style as above button through its key" Style="{StaticResource myStyleForGenericControl}" />
+            <Button Content="Button with mixed style applied" Style="{StaticResource myStyleMixedControlType}" />
+            <!-- strange enough, this label gets the value of the background
+                allthough we specified a type of button for the property -->
+            <Label Style="{StaticResource myStyleMixedControlType}" >Label with mixed style applied</Label>
+            <!-- let's try that again we a button targetted style: this doesn't work !!! -->
+            <!--<Label Style="{StaticResource myStyle}" >Label with button targetted style applied</Label>-->
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="10">
+            <StackPanel.Resources>
+                <!-- Make all labels green in this stackpanel -->
+                <Style TargetType="Label">
+                    <Setter Property="Background" Value="Green" />
+                </Style>
+                <Style x:Key="greenForground" TargetType="Button">
+                    <Setter Property="Foreground" Value="Green" />
+                </Style>
+                <Style x:Key="greenOnYellow" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Foreground" Value="Green" />
+                </Style>
+                <!-- this style's key also exists at the parent scope -->
+                <Style x:Key="myStyle" TargetType="Button">
+                    <Setter Property="Background" Value="#FFAC8133" />
+                </Style>
+                <Style x:Key="myStyleWithEventInContainer" TargetType="Button">
+                    <EventSetter Event="Click" Handler="ButtonInContainer_Click"/>
+                </Style>
+            </StackPanel.Resources>
+            <ToggleButton Content="ToggleButton in second stackpanel with style from window"></ToggleButton>
+            <CheckBox Content="CheckBox in second stackpanel no styling applied"></CheckBox>
+			<!-- following button receives its style from the window resource section -->
+            <Button Content="Button with style from Window"></Button>
+            <Label >Label with a style from the stackpanel applied through its type</Label>
+            <Button Content="Button with style from StackPanel" Style="{StaticResource greenForground}"></Button>
+            <Button Content="Button with style from StackPanel with duplicate key" Style="{StaticResource myStyle}"></Button>
+            <Button Content="Button with style from StackPanel BasedOn style from Window" Style="{StaticResource greenOnYellow}"></Button>
+            <Expander Header="Expander" HorizontalAlignment="Left">
+                <Button Content="Button in expander with style from Window"></Button>
+            </Expander>
+            <Button Content="Button with event from StackPanel" Style="{StaticResource myStyleWithEventInContainer}"></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="10">
+            <!-- Following will not work or compile: the style is not known in this scope -->
+            <!-- <Button Content="Button with style from StackPanel" Style="{StaticResource greenForground}"></Button> -->
+            <Button>
+                <Button.Content>
+                    <Label>The text of the button in a window styled Label</Label>
+                </Button.Content>
+            </Button>
+            <!--<Button Content="The content of the templated button">
+                <Button.Template>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Label>Label inside ControlTemplate</Label>
+                            <ContentPresenter Content="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>-->
+            <Button>
+                <Button.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="Background" Value="Green" />
+                    </Style>
+                </Button.Resources>
+                <Button.Content>
+                    <Label>The text of the button in a locally styled Label</Label>
+                </Button.Content>
+            </Button>
+            <Button>
+                <Button.Style>
+                    <Style>
+                        <Setter Property="Button.Background" Value="Fuchsia" />
+                        <!-- these are aplied directly to the button which doesn't have these properties -->
+                        <!-- they are NOT applied to the label inside the content property of the button -->
+                        <Setter Property="Label.BorderBrush" Value="Beige" />
+                        <Setter Property="Label.BorderThickness" Value="3" />
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Label>The text of the button in a locally styled Label (but it doesn't work)</Label>
+                </Button.Content>
+            </Button>
+            <Button>
+                <Button.Style>
+                    <Style>
+                        <Style.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="Label.BorderBrush" Value="Beige" />
+                                <Setter Property="Label.BorderThickness" Value="3" />
+                            </Style>
+                        </Style.Resources>
+                        <Setter Property="Button.Background" Value="Fuchsia" />
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Label>The text of the button in a locally styled Label (and it works)</Label>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Margin="5">
+            <Button Content="Button (with libstyle from componentkey)" Style="{StaticResource {ComponentResourceKey {x:Type slib:DummyClass}, myComponentLibStyle}}" />
+            <!--<Button Content="Button (with libstyle)" Style="{StaticResource myLibStyle}" />-->
+            <!--<Button Content="Button (with libstyle from componentkey)" Style="{StaticResource {ComponentResourceKey {x:Type slib:DummyClass}, myLibStyle}}" />-->
+        </StackPanel>
+        <StackPanel Grid.Row="4" Margin="5">
+            <Button Content="A Button outside the usercontrol: it gets the 'current' style"></Button>
+            <!-- the button inside the usercontrol get's the window button style !!! -->
+            <UserControlLib:UserControlNoStyle/>
+            <Button Content="A Button outside the usercontrol: key is same as inside usercontrol" Style="{StaticResource styleWithKey}"></Button>
+            <UserControlLib:UserControlWithStyle/>
+        </StackPanel>
+        <StackPanel Grid.Row="5" Margin="5">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <EventSetter Event="Click" Handler="WowButton_Click" />
+                </Style>
+            </StackPanel.Resources>
+            <Button Content="A Button outside the usercontrol: itseventhandler set by style"></Button>
+            <!-- the button inside the usercontrol get's the window button style !!! -->
+            <UserControlLib:UserControlNoStyle/>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Margin="5">
+            <!-- following looks like an ordinary button, notice how it does NOT get the changed default button style -->
+            <CustomControlLib:CustomUnstyledButton Content="Custom unstyled button"></CustomControlLib:CustomUnstyledButton>
+            <!-- following looks like an orange button -->
+            <CustomControlLib:CustomUnstyledButton Content="Custom unstyled button with style" Style="{StaticResource myStyle}"></CustomControlLib:CustomUnstyledButton>
+            <CustomControlLib:CustomStyledButton Content="Custom styled button" />
+            <CustomControlLib:AnotherCustomStyledButton Content="AnotherCustom styled button" />
+            <CustomControlLib:CustomStyledButton Content="Custom styled button with button style" Style="{StaticResource myStyle}"></CustomControlLib:CustomStyledButton>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer>
+</Window>

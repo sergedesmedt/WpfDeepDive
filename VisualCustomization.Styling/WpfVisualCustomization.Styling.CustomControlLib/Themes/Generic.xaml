@@ -1,0 +1,12 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WpfVisualCustomization.CustomControlLib">
+    <Style TargetType="{x:Type local:CustomStyledButton}" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Background" Value="Blue" />
+        <Setter Property="BorderBrush" Value="Yellow" />
+    </Style>
+    <Style TargetType="{x:Type local:AnotherCustomStyledButton}" >
+        <Setter Property="Background" Value="Blue" />
+    </Style>
+</ResourceDictionary>
