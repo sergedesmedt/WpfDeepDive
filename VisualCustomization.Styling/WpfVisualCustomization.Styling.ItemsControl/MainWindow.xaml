@@ -37,20 +37,22 @@
                 <Int32Collection >1,2,3,4,5</Int32Collection>
             </ItemsControl.ItemsSource>
         </ItemsControl>
+        <!-- To display numbers, the ItemsControl uses TextBlocks but 
+	        still no styling applied to the controls displaying the values:
+	        the style is applied to the ContentPresenters which contain these TextBlocks -->
+        <ItemsControl Grid.Row="1" ItemContainerStyle="{StaticResource myTextBlockStyle}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection>10,20,30,40,50</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
         <!-- There is background coloring here: the itemstyle is applied to the
             container which in this case is the Buttons themselves. If the itemssource
             contains Controls, then no ContentPresenter controls are created, but the
             controls themselves are used directly-->
-        <ItemsControl Grid.Row="1" ItemContainerStyle="{StaticResource myItemsStyle}" >
+        <ItemsControl Grid.Row="2" ItemContainerStyle="{StaticResource myItemsStyle}" >
             <Button Content="A button" />
             <Button Content="A button" />
             <Button Content="A button" />
-        </ItemsControl>
-        <!-- still no styling applied to the controls displaying the values -->
-        <ItemsControl Grid.Row="2" ItemContainerStyle="{StaticResource myTextBlockStyle}" >
-            <ItemsControl.ItemsSource>
-                <Int32Collection>10,20,30,40,50</Int32Collection>
-            </ItemsControl.ItemsSource>
         </ItemsControl>
         <!-- aha: if we use nested styles we do succeed!!! -->
         <ItemsControl Grid.Row="3" ItemContainerStyle="{StaticResource myTextBlockStyle2}" >

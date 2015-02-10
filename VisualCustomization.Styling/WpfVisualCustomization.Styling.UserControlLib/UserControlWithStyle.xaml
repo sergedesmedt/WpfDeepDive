@@ -7,19 +7,19 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="buttonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Yellow" />
+            <Setter Property="Background" Value="Red" />
         </Style>
         <Style x:Key="basedOnStyle1" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
-            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Foreground" Value="Blue" />
         </Style>
         <!--Allthough you specify button is the base-type, it will not use the button style 
             of the application you use this control in-->
         <Style x:Key="basedOnStyle2" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Foreground" Value="Green" />
         </Style>
-        <Style x:Key="styleWithKey" TargetType="Button">
+        <!--<Style x:Key="styleWithKey" TargetType="Button">
             <Setter Property="Foreground" Value="Green" />
-        </Style>
+        </Style>-->
         <!-- Attempting to set event hadler -->
         <Style x:Key="buttonStyleWithEventHandlerInUserControl" TargetType="Button">
             <Setter Property="Background" Value="Green" />
@@ -45,7 +45,7 @@
             <Button Content="A Custom Control with Styled Button from the Custom Control" Style="{StaticResource buttonStyle}"/>
             <Button Content="A Custom Control with Styled Button from the Custom Control BasedOn by x:Key" Style="{StaticResource basedOnStyle1}"/>
             <Button Content="A Custom Control with Styled Button from the Custom Control BasedOn by Type" Style="{StaticResource basedOnStyle2}"/>
-            <Button Content="A Custom Control with Styled Button by using key" Style="{StaticResource styleWithKey}"/>
+            <!--<Button Content="A Custom Control with Styled Button by using key" Style="{StaticResource styleWithKey}"/>-->
             <Button Content="A Custom Control with Styled Handler in User Control" Style="{StaticResource buttonStyleWithEventHandlerInUserControl}"/>
             <!--<Button Content="A Custom Control with Styled Handler in Client Window" Style="{StaticResource buttonStyleWithEventHandlerInClientWindow}"/>-->
             <!--<Button Content="A Custom Control with Styled Button basedon style in client application" Style="{StaticResource basedOnDynResStyle}"/>-->

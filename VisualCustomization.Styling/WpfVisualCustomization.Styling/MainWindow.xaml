@@ -238,7 +238,8 @@
             <Button Content="A Button outside the usercontrol: it gets the 'current' style"></Button>
             <!-- the button inside the usercontrol get's the window button style !!! -->
             <UserControlLib:UserControlNoStyle/>
-            <Button Content="A Button outside the usercontrol: key is same as inside usercontrol" Style="{StaticResource styleWithKey}"></Button>
+            <!--<Button Content="A Button outside the usercontrol: key is same as inside usercontrol" Style="{StaticResource styleWithKey}"></Button>-->
+            <!-- our windows defined button style does not get propagated to basedon styles inside the customcontrol -->
             <UserControlLib:UserControlWithStyle/>
         </StackPanel>
         <StackPanel Grid.Row="5" Margin="5">
