@@ -1,0 +1,35 @@
+﻿<Window x:Class="Resources.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Resources"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:MyCustomClass x:Key="windowLevelInstance" StringProperty="WindowResource" IntegerPoperty="10" />
+        <!-- we cannot use the same key twice, even if it is for another type of object -->
+        <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance" IntegerPoperty="10" />
+        <!--<Color x:Key="someKeyToAnInstance" >#FFFFFF00</Color>-->
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="{StaticResource windowLevelInstance}"/>
+        <StackPanel Grid.Row="1">
+            <StackPanel.Resources>
+                <local:MyCustomClass x:Key="stackpanelLevelInstance" StringProperty="StackpanelResource" IntegerPoperty="10" />
+            </StackPanel.Resources>
+            <Button Content="{StaticResource stackpanelLevelInstance}"/>
+        </StackPanel>
+        <!-- following will throw an exception at runtime:
+            the resource is not available in this scope -->
+        <!--<Button Content="{StaticResource stackpanelLevelInstance}"/>-->
+        <StackPanel Grid.Row="2">
+            <StackPanel.Resources>
+                <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance (local scope)" IntegerPoperty="10" />
+            </StackPanel.Resources>
+            <Button Content="{StaticResource someKeyToAnInstance}"/>
+        </StackPanel>
+    </Grid>
+</Window>
