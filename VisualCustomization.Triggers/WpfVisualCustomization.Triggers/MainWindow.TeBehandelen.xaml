@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfVisualCustomization.Styling.Triggers.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:me="clr-namespace:WpfVisualCustomization.Styling.Triggers"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+    </Window.Resources>
+    <ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0">
+            <!-- **********************************************
+                                 plain use cases 
+                 **********************************************-->
+        </StackPanel>
+        <StackPanel  Grid.Row="1">
+            <!-- **********************************************
+                  what are the kind of properties we can use? 
+                 **********************************************-->
+            <!-- a regular binding does not check the datacontext -->
+            <me:MyCustomButton x:Name="btnNotifyChangesProperty" Content="Button with INotifyPropertyChanged property using datatrigger"  Style="{StaticResource ResourceKey=dataTriggerFromNotifyChangedProperty}" Click="NotifyChangedPropertyOnClickHandler"/>
+            <me:MyCustomButtonWithDataContext x:Name="btnDataContextNotifyChangesProperty" Content="Button with DataContext INotifyPropertyChanged property"  Style="{StaticResource ResourceKey=dataTriggerFromNotifyChangedProperty}" Click="DataContextNotifyChangedPropertyOnClickHandler"/>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer>
+</Window>

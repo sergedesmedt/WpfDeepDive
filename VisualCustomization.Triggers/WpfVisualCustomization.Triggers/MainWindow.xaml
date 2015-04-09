@@ -1,0 +1,518 @@
+﻿<Window x:Class="WpfVisualCustomization.Styling.Triggers.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:me="clr-namespace:WpfVisualCustomization.Styling.Triggers"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <!-- A most basic case: the value of a property inside a control sets a property on that same control 
+            If you want multiple properties to be set, just provide multiple setters -->
+        <Style x:Key="styleWithTriggerUsingSetter" TargetType="Control">
+            <Setter Property="Control.Background" Value="Blue" />
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="BorderThickness" Value="5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- notice how the exit actions animmates to another backgroundcolor than the one defined in the setter
+            Conlusion: you are responsible for transitioning back to the desired beginstate-->
+        <Style x:Key="styleWithTriggerUsingAction" TargetType="TextBox">
+            <Setter Property="TextBox.Background" Value="Blue" />
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Red" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- notice that when we provide no exit actions our color is not reset -->
+        <Style x:Key="styleWithTriggerUsingActionNoExit" TargetType="TextBox">
+            <Setter Property="TextBox.Background" Value="Blue" />
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Of course, the same rules about specifying the type apply as in regular property style definitions: 
+            if not specifying a TargetType, then we must supply the class type for the Trigger Property 
+            AND for the Setter Properties-->
+        <!--<Style x:Key="nonCompileableStyleWithTrigger">
+            <Style.Triggers>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="BorderThickness" Value="5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="nonCompileableStyleWithTrigger">
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                    <Setter Property="Control.BorderThickness" Value="5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+        <!-- If we want to specify multiple conditions, we must use a MultiTrigger
+            All conditions in the MultiTrigger.Conditions collection must be met befor the Property is set -->
+        <Style x:Key="checkBoxStyleWithMultiTrigger">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="CheckBox.IsMouseOver" Value="True"></Condition>
+                        <Condition Property="CheckBox.IsChecked" Value="True"></Condition>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- BasedOn merges the setters -->
+        <Style x:Key="basedOnStyleWithTrigger" BasedOn="{StaticResource styleWithTriggerUsingSetter}" TargetType="Control">
+            <Style.Triggers>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="Control.BorderBrush" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="Yellow" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- the above basedOnStyleWithTrigger is logically identical to following -->
+        <Style x:Key="basedOnStyleWithTriggerExplicite" TargetType="Control">
+            <Style.Triggers>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="BorderThickness" Value="5" />
+                    <Setter Property="Control.BorderBrush" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="Yellow" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="basedOnMultiStyleWithTrigger" BasedOn="{StaticResource checkBoxStyleWithMultiTrigger}">
+            <Style.Triggers>
+                <Trigger Property="CheckBox.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Green" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="expliciteMergeStyleWithSomeTriggers">
+            <Style.Triggers>
+                <Trigger Property="CheckBox.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Green" />
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="CheckBox.IsMouseOver" Value="True"></Condition>
+                        <Condition Property="CheckBox.IsChecked" Value="True"></Condition>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="expliciteMergeStyleWithSomeTriggersWrong">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="CheckBox.IsMouseOver" Value="True"></Condition>
+                        <Condition Property="CheckBox.IsChecked" Value="True"></Condition>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </MultiTrigger>
+                <Trigger Property="CheckBox.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Green" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithSomeTriggersOrdering1">
+            <Style.Triggers>
+                <Trigger Property="CheckBox.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Green" />
+                </Trigger>
+                <Trigger Property="CheckBox.IsChecked" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithSomeTriggersOrdering2">
+            <Style.Triggers>
+                <Trigger Property="CheckBox.IsChecked" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </Trigger>
+                <Trigger Property="CheckBox.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Green" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Unfortunately, we cannot set nested properties in a regular trigger: following goves a compilation error -->
+        <!--<Style x:Key="styleWithTriggerFromNestedProperty">
+            <Style.Triggers>
+                <Trigger Property="me:MyCustomButtonWithDataContext.TypedDataContext.MyDependencyProperty" Value="True">
+                    <Setter Property="Control.Foreground" Value="Green" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+        <Style x:Key="styleWithDataTriggerUsingSetter">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsChecked}" Value="True">
+                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithDataTriggerUsingSetterBindToControl">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
+                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithDependencyPropertyDataTrigger">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=MyDependencyProperty}" Value="True">
+                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithMultiDataTrigger">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition  Binding="{Binding Path=IsChecked}" Value="True" />
+                        <Condition  Binding="{Binding Path=PropertyWithOtherName}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- doing the same with a multibinding: we (mostly) have to provide our own converter -->
+        <me:MyCustomMultiValueConverter x:Key="myConverter"/>
+        <Style x:Key="styleWithMultiBindingDataTrigger">
+            <Style.Triggers>
+                <DataTrigger Value="V1:True;V2:True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource myConverter}">
+                            <Binding Path="IsChecked" />
+                            <Binding Path="PropertyWithOtherName" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithDataTriggerBindByPropertyName">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PropertyWithName}" Value="True">
+                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithDataTriggerBindByNotificationName">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PropertyWithWrongName}" Value="True">
+                    <Setter Property="CheckBox.Foreground" Value="Blue"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithDataTriggerBindByOtherName">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PropertyWithOtherName}" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- following will not work: we can only set Property Triggers on Dependency Properties -->
+        <!--<Style x:Key="triggerFromMuteProperty">
+            <Setter Property="Control.Background" Value="Green" />
+            <Style.Triggers>
+                <Trigger Property="me:MyCustomButton.MuteProperty" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+        <!-- following will not work: we can only set Property Triggers on Dependency Properties -->
+        <!--<Style x:Key="triggerFromNotifyChangedProperty">
+            <Setter Property="Control.Background" Value="Green" />
+            <Style.Triggers>
+                <Trigger Property="me:MyCustomButton.NotifyChangesProperty" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+        <Style x:Key="propertyTriggerFromNotifyChangedProperty">
+            <Style.Triggers>
+                <Trigger Property="CheckBox.IsChecked" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="dataTriggerFromNotifyChangedProperty">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=NotifyChangesProperty}" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- altough this will compile and run, it won't work: binding needs a dependency property or an
+            INotifyPropertyChanged backed property.
+            How is it to know otherwise that the property changed?-->
+        <Style x:Key="dataTriggerFromMuteProperty">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=MuteProperty}" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithEventTrigger" TargetType="TextBlock">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- allthough the following does compile, it will not work: you can only use routed events 
+        You get a runtime exception from the xaml parser-->
+        <!--<Style x:Key="styleWithEventTriggerNonRoutedEvent" TargetType="TextBlock">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="IsEnabledChanged">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>-->
+        <Style x:Key="styleWithMultipleEventTriggers" TargetType="TextBox">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <!-- eventtriggers only support actions and not setters like the regular trigger and the datatrigger -->
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="GotFocus">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Blue" Duration="0:0:0.25" >
+                                </ColorAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- following will not work: you cannot use setters inside an eventtrigger -->
+        <!--<Style x:Key="styleWithEventTriggerAndSetter" TargetType="TextBlock">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>-->
+        <!-- following will not work. It will give following compilation error:
+            TargetName property cannot be set on a Style Setter
+            This has nothing to do with the type of trigger but simply the fact where using it in a Style -->
+        <!--<Style x:Key="styleWithCrossObjectTrigger" TargetType="Control">
+            <Style.Triggers>
+                <Trigger Property="CheckBox.IsChecked" Value="True">
+                    <Setter TargetName="txtTarget" Property="Control.Background" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="styleWithCrossObjectDataTrigger" TargetType="Control">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=MuteProperty}" Value="True">
+                    <Setter TargetName="txtTarget" Property="Control.Background" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>-->
+        <!-- A ControlTemplate Triggers collection does allow Property Triggers and those are allowed to specify the TargetName attribute -->
+        <Style x:Key="styleWithTargetNameInTemplate" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <StackPanel>
+                            <ContentPresenter Content="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
+                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="Green" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter TargetName="ourTarget" Property="Background" Value="Red" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- TargetName only works if it is used in the triggers collection of a controltemplate
+            You can still not use it inside ordinary controls in the controltemplate -->
+        <!--<Style x:Key="styleWithTargetNameInTemplatePermutation1" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <Trigger Property="Button.IsFocused" Value="true">
+                                            <Setter TargetName="ourTarget" Property="Background" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <ContentPresenter Content="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
+                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="Green" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+        <Style x:Key="styleWithCrossObjectDataTrigger">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=chkTarget, Path=IsChecked}" Value="True">
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0">
+            <!-- **********************************************
+                                 plain use cases 
+                 **********************************************-->
+            <TextBox Text="Textbox with simple trigger using setter" Style="{StaticResource ResourceKey=styleWithTriggerUsingSetter}"/>
+            <TextBox Text="Textbox with simple trigger using actions" Style="{StaticResource ResourceKey=styleWithTriggerUsingAction}"/>
+            <TextBox Text="Textbox with simple trigger using actions (no exit)" Style="{StaticResource ResourceKey=styleWithTriggerUsingActionNoExit}"/>
+            <CheckBox Content="Checkbox with multitrigger" Style="{StaticResource ResourceKey=checkBoxStyleWithMultiTrigger}"/>
+            <CheckBox Content="Checkbox with explicite merged multitrigger" Style="{StaticResource ResourceKey=expliciteMergeStyleWithSomeTriggers}"/>
+            <CheckBox Content="Checkbox with explicite merged multitrigger (wrong ordering)" Style="{StaticResource ResourceKey=expliciteMergeStyleWithSomeTriggersWrong}"/>
+            <CheckBox Content="Checkbox with trigger and MouseOver/Checked ordering: Checked with green foreground is impossible" Style="{StaticResource ResourceKey=styleWithSomeTriggersOrdering1}"/>
+            <CheckBox Content="Checkbox with trigger and Checked/MouseOver ordering: Checked with green foreground is possible" Style="{StaticResource ResourceKey=styleWithSomeTriggersOrdering2}"/>
+            <TextBox Text="Textbox with based on trigger" Style="{StaticResource ResourceKey=basedOnStyleWithTrigger}"/>
+            <CheckBox Content="Checkbox with based on multitrigger" Style="{StaticResource ResourceKey=basedOnMultiStyleWithTrigger}"/>
+            <StackPanel Margin="10">
+                <me:MyCustomCheckBox x:Name="chkWithDataContext" Content="Press any of the below buttons" Style="{StaticResource ResourceKey=styleWithDataTriggerUsingSetter}" />
+                <Button Content="Click me to check the above CheckBox" Click="CheckCheckBox"/>
+                <Button Content="Click me to check the DataContext object of the above CheckBox" Click="CheckCheckBoxDataContext"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <me:MyCustomCheckBox x:Name="chkWithDataContextBindToControl" Content="Press the below button" Style="{StaticResource ResourceKey=styleWithDataTriggerUsingSetterBindToControl}" />
+                <Button Content="Click me to check the above CheckBox with a Control binding" Click="CheckCheckBoxWithControlBinding"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <CheckBox x:Name="chkWithDependecyObjectDataContext" Content="Press any of the below buttons" Style="{StaticResource ResourceKey=styleWithDependencyPropertyDataTrigger}" />
+                <Button Content="Click me to check the MyDependencyProperty property of the DataContext object of the above CheckBox" Click="ToggleCheckBoxDependencyDataContext"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <me:MyCustomCheckBox x:Name="chkWithMultiDataContext" Content="Press any of the below buttons" Style="{StaticResource ResourceKey=styleWithMultiDataTrigger}" />
+                <Button Content="MultiData: Click me to toggle the IsChecked of the DataContext object of the above CheckBox" Click="ToggleIsCheckCheckBoxDataContext1"/>
+                <Button Content="MultiData: Click me to toggle the PropertyWithOtherName of the DataContext object of the above CheckBox" Click="TogglePropertyWithOtherNameCheckBoxDataContext1"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <me:MyCustomCheckBox x:Name="chkWithMultiBindingDataContext" Content="Press any of the below buttons" Style="{StaticResource ResourceKey=styleWithMultiBindingDataTrigger}" />
+                <Button Content="MultiBinding: Click me to toggle the IsChecked of the DataContext object of the above CheckBox" Click="ToggleIsCheckCheckBoxDataContext2"/>
+                <Button Content="MultiBinding: Click me to toggle the PropertyWithOtherName of the DataContext object of the above CheckBox" Click="TogglePropertyWithOtherNameCheckBoxDataContext2"/>
+            </StackPanel>
+            <!-- THIS HAS NOTHING TO DO WITH EVENTTRIGGERS - you have to set the property you want to animate to an initial value-->
+            <TextBlock Text="TextBlock with eventtrigger" Background="Red" Style="{StaticResource ResourceKey=styleWithEventTrigger}" />
+            <TextBox Text="TextBox with multiple eventtriggers" Background="Red" Style="{StaticResource ResourceKey=styleWithMultipleEventTriggers}" />
+        </StackPanel>
+        <StackPanel  Grid.Row="1">
+            <!-- **********************************************
+                  what are the kind of properties we can use? 
+                 **********************************************-->
+            <!-- none of these will work: we cannot trigger on non dependency properties -->
+            <!--<me:MyCustomButton x:Name="btnNotifyChangesProperty" Content="Button with INotifyPropertyChanged property: failed binding"  Style="{StaticResource ResourceKey=triggerFromNotifyChangedProperty}" Click="NotifyChangedPropertyOnClickHandler"/>
+            <me:MyCustomButton x:Name="btnMuteProperty" Content="Button with regular property: failed binding"  Style="{StaticResource ResourceKey=triggerFromMuteProperty}" Click="MutePropertyOnClickHandler"/>-->
+            <!-- a regular binding does not check the datacontext -->
+            <Button x:Name="btnPropTriggerNotifyChangesProperty" Content="Button with INotifyPropertyChanged property using propertytrigger"  Style="{StaticResource ResourceKey=propertyTriggerFromNotifyChangedProperty}" Click="PropTriggerNotifyChangedPropertyOnClickHandler"/>
+            <me:MyCustomButton x:Name="btnNotifyChangesProperty" Content="Button with INotifyPropertyChanged property using datatrigger"  Style="{StaticResource ResourceKey=dataTriggerFromNotifyChangedProperty}" Click="NotifyChangedPropertyOnClickHandler"/>
+            <me:MyCustomButtonWithDataContext x:Name="btnDataContextNotifyChangesProperty" Content="Button with DataContext INotifyPropertyChanged property"  Style="{StaticResource ResourceKey=dataTriggerFromNotifyChangedProperty}" Click="DataContextNotifyChangedPropertyOnClickHandler"/>
+            <me:MyCustomButtonWithDataContext x:Name="btnDataContextMuteProperty" Content="Button with DataContext regular property"  Style="{StaticResource ResourceKey=dataTriggerFromMuteProperty}" Click="DataContextMutePropertyOnClickHandler"/>
+            <!-- following behaviour is specific for bindings, but I wanted to show you anyway -->
+            <StackPanel Margin="10">
+                <CheckBox x:Name="chkWithDataContextPropertyWithName" Content="Press the below button" Style="{StaticResource ResourceKey=styleWithDataTriggerBindByPropertyName}" />
+                <CheckBox x:Name="chkWithDataContextOtherPropertyWithWrongName" Content="Press the below button" Style="{StaticResource ResourceKey=styleWithDataTriggerBindByNotificationName}" />
+                <CheckBox x:Name="chkWithDataContextOtherPropertyWithName" Content="Press the below button" Style="{StaticResource ResourceKey=styleWithDataTriggerBindByOtherName}" />
+                <Button Content="Click me to check the topmost CheckBox using the actual propertyname" Click="SwitchByPropertyName"/>
+                <Button Content="Click me to check the middle CheckBox using the incorrect propertyname" Click="SwitchByPropertyWrongName"/>
+                <Button Content="Click me to check the middle/bottom CheckBox using the wrongly used other propertyname" Click="SwitchWronglyByPropertyOtherName"/>
+                <Button Content="Click me to check the bottom CheckBox using the correctly used other propertyname" Click="SwitchCorrectByPropertyOtherName"/>
+            </StackPanel>
+                <!-- **********************************************
+                  what are the kind of events we can use? 
+                 **********************************************-->
+                <!--<TextBlock x:Name="tblNonRoutedEventTrigger" Text="TextBlock with nonrouted eventtrigger" Background="Red" Style="{StaticResource ResourceKey=styleWithEventTriggerNonRoutedEvent}" />
+                <Button Content="Click me to toggle the enabling of the above textblock"  Click="DisableTextBlockClickHandler"/>-->
+            </StackPanel>
+        <StackPanel Grid.Row="2">
+            <!-- **********************************************
+                          cross object referencing 
+                 **********************************************-->
+            <!-- Well if we cannot use the TargetName attribute in a Style, then let's try it in the Control.
+                    Nice try ! Unfortunately the Triggers collection of a FrameWorkElement only supports EventTriggers 
+                    which do not accept Setters-->
+            <!--<StackPanel.Triggers>
+                <Trigger Property="CheckBox.IsChecked" Value="True">
+                    <Setter TargetName="txtTarget" Property="Control.Background" Value="Red" />
+                </Trigger>
+            </StackPanel.Triggers>-->
+            <Button Content="Button with Template using TargetName"  Style="{StaticResource ResourceKey=styleWithTargetNameInTemplate}" />
+            <!-- the scope of the name is confined to the controltemplate
+                as a result, if we use the same controltemplate for another button, then WPF considers this as another name -->
+            <Button Content="Other Button with same Template using TargetName"  Style="{StaticResource ResourceKey=styleWithTargetNameInTemplate}" />
+            <TextBox x:Name="txtTarget" Text="Textbox with trigger source from checkbox"  Style="{StaticResource ResourceKey=styleWithCrossObjectDataTrigger}" />
+            <CheckBox x:Name="chkTarget" Content="Checkbox wich is the trigger source" >
+            </CheckBox>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer>
+</Window>

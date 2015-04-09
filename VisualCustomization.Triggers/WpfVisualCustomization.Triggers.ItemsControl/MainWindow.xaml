@@ -1,0 +1,92 @@
+﻿<Window x:Class="WpfVisualCustomization.Triggers.ItemsControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style x:Key="myItemsStyle">
+            <Setter Property="Control.Background" Value="Blue" />
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Background" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="myTextBlockStyle2">
+            <Style.Resources>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="myItemContainerStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <ContentPresenter />
+                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="Green" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="ourTarget" Property="Background" Value="Red" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="myListBoxItemsStyle">
+            <Setter Property="Control.Background" Value="Red" />
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Foreground" Value="Blue" />
+                    <!--<Setter Property="Control.BorderThickness" Value="5" />-->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- There is no background or foreground coloring here: the itemstyle is applied to the
+            container which in this case is a ContentPresenter. -->
+        <ItemsControl Grid.Row="0" ItemContainerStyle="{StaticResource myItemsStyle}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection >1,2,3,4,5</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+        <ItemsControl Grid.Row="1" ItemContainerStyle="{StaticResource myItemsStyle}" >
+            <Button Content="A button" />
+            <Button Content="A button" />
+            <Button Content="A button" />
+        </ItemsControl>
+        <ItemsControl Grid.Row="2" ItemContainerStyle="{StaticResource myTextBlockStyle2}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection>10,20,30,40,50</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+        <!-- A ListBox wraps its data inside a ListBoxItem which does have a background property -->
+        <ListBox Grid.Row="3" ItemContainerStyle="{StaticResource myListBoxItemsStyle}">
+            <ItemsControl.ItemsSource>
+                <Int32Collection>100,200,300,400,500</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ListBox>
+        <!-- eacht instance of the controltemplate has its own scope 
+            thus, if one triggers it does not affect the setters of others -->
+        <ListBox Grid.Row="4" ItemContainerStyle="{StaticResource myItemContainerStyle}" >
+            <ItemsControl.ItemsSource>
+                <Int32Collection>101,201,301,401,501</Int32Collection>
+            </ItemsControl.ItemsSource>
+        </ListBox>
+    </Grid>
+</Window>
