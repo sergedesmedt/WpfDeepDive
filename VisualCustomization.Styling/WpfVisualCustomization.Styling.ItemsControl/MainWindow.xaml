@@ -5,6 +5,8 @@
     <Window.Resources>
         <Style x:Key="myItemsStyle">
             <Setter Property="Control.Background" Value="Red" />
+            <!-- but this one does get set !!! -->
+            <Setter Property="Control.Foreground" Value="Blue" />
         </Style>
         <!-- this will not get applied to the textboxes -->
         <Style x:Key="myTextBlockStyle">

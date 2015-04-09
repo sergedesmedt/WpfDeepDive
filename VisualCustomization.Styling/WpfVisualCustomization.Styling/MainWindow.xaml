@@ -103,6 +103,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="10">
@@ -263,6 +264,10 @@
             <CustomControlLib:CustomStyledButton Content="Custom styled button" />
             <CustomControlLib:AnotherCustomStyledButton Content="AnotherCustom styled button" />
             <CustomControlLib:CustomStyledButton Content="Custom styled button with button style" Style="{StaticResource myStyle}"></CustomControlLib:CustomStyledButton>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Margin="5">
+            <CustomControlLib:UserControlThereIsNoFreeLunchV1 />
+            <CustomControlLib:UserControlThereIsNoFreeLunchV2 />        
         </StackPanel>
     </Grid>
     </ScrollViewer>

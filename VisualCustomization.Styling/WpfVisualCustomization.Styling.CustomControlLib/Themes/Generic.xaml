@@ -9,4 +9,7 @@
     <Style TargetType="{x:Type local:AnotherCustomStyledButton}" >
         <Setter Property="Background" Value="Blue" />
     </Style>
+    <Style x:Key="MyGenericCustomButton"  TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Yellow" />
+    </Style>
 </ResourceDictionary>

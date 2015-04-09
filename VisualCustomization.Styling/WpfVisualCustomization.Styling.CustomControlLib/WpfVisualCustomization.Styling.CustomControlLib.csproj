@@ -47,6 +47,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControlThereIsNoFreeLunchV1.xaml.cs">
+      <DependentUpon>UserControlThereIsNoFreeLunchV1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlThereIsNoFreeLunchV2.xaml.cs">
+      <DependentUpon>UserControlThereIsNoFreeLunchV2.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -55,6 +61,14 @@
     <Compile Include="CustomStyledButton.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControlThereIsNoFreeLunchV1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlThereIsNoFreeLunchV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomUnstyledButton.cs" />
