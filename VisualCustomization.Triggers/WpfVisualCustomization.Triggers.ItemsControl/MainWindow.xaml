@@ -4,10 +4,10 @@
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <Style x:Key="myItemsStyle">
-            <Setter Property="Control.Background" Value="Blue" />
+            <Setter Property="Control.Foreground" Value="Blue" />
             <Style.Triggers>
                 <Trigger Property="Control.IsMouseOver" Value="True">
-                    <Setter Property="Control.Background" Value="Red" />
+                    <Setter Property="Control.Foreground" Value="Red" />
                 </Trigger>
             </Style.Triggers>
         </Style>
