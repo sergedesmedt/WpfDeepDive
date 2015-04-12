@@ -2,12 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:me="clr-namespace:WpfVisualCustomization.Styling.Triggers"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="360" Width="650">
     <Window.Resources>
         <!-- A most basic case: the value of a property inside a control sets a property on that same control 
             If you want multiple properties to be set, just provide multiple setters -->
         <Style x:Key="styleWithTriggerUsingSetter" TargetType="Control">
-            <Setter Property="Control.Background" Value="Blue" />
+            <Setter Property="Control.Background" Value="#FF00C1FF" />
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Foreground" Value="Red" />
@@ -18,14 +18,14 @@
         <!-- notice how the exit actions animmates to another backgroundcolor than the one defined in the setter
             Conlusion: you are responsible for transitioning back to the desired beginstate-->
         <Style x:Key="styleWithTriggerUsingAction" TargetType="TextBox">
-            <Setter Property="TextBox.Background" Value="Blue" />
+            <Setter Property="TextBox.Background" Value="#FF00C1FF" />
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation 
-                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="#FF38B409" Duration="0:0:0.25" >
                                 </ColorAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -44,14 +44,14 @@
         </Style>
         <!-- notice that when we provide no exit actions our color is not reset -->
         <Style x:Key="styleWithTriggerUsingActionNoExit" TargetType="TextBox">
-            <Setter Property="TextBox.Background" Value="Blue" />
+            <Setter Property="TextBox.Background" Value="#FF00C1FF" />
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation 
-                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="#FF38B409" Duration="0:0:0.25" >
                                 </ColorAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -95,7 +95,7 @@
         <Style x:Key="basedOnStyleWithTrigger" BasedOn="{StaticResource styleWithTriggerUsingSetter}" TargetType="Control">
             <Style.Triggers>
                 <Trigger Property="Control.IsFocused" Value="True">
-                    <Setter Property="Control.BorderBrush" Value="Green" />
+                    <Setter Property="Control.BorderBrush" Value="#FF38B409" />
                     <Setter Property="Control.Foreground" Value="Yellow" />
                 </Trigger>
             </Style.Triggers>
@@ -105,7 +105,7 @@
             <Style.Triggers>
                 <Trigger Property="Control.IsFocused" Value="True">
                     <Setter Property="BorderThickness" Value="5" />
-                    <Setter Property="Control.BorderBrush" Value="Green" />
+                    <Setter Property="Control.BorderBrush" Value="#FF38B409" />
                     <Setter Property="Control.Foreground" Value="Yellow" />
                 </Trigger>
             </Style.Triggers>
@@ -113,14 +113,14 @@
         <Style x:Key="basedOnMultiStyleWithTrigger" BasedOn="{StaticResource checkBoxStyleWithMultiTrigger}">
             <Style.Triggers>
                 <Trigger Property="CheckBox.IsMouseOver" Value="True">
-                    <Setter Property="Control.Foreground" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="#FF38B409" />
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="expliciteMergeStyleWithSomeTriggers">
             <Style.Triggers>
                 <Trigger Property="CheckBox.IsMouseOver" Value="True">
-                    <Setter Property="Control.Foreground" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="#FF38B409" />
                 </Trigger>
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
@@ -141,14 +141,14 @@
                     <Setter Property="Control.Foreground" Value="Red" />
                 </MultiTrigger>
                 <Trigger Property="CheckBox.IsMouseOver" Value="True">
-                    <Setter Property="Control.Foreground" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="#FF38B409" />
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="styleWithSomeTriggersOrdering1">
             <Style.Triggers>
                 <Trigger Property="CheckBox.IsMouseOver" Value="True">
-                    <Setter Property="Control.Foreground" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="#FF38B409" />
                 </Trigger>
                 <Trigger Property="CheckBox.IsChecked" Value="True">
                     <Setter Property="Control.Foreground" Value="Red" />
@@ -161,7 +161,7 @@
                     <Setter Property="Control.Foreground" Value="Red" />
                 </Trigger>
                 <Trigger Property="CheckBox.IsMouseOver" Value="True">
-                    <Setter Property="Control.Foreground" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="#FF38B409" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -169,28 +169,28 @@
         <!--<Style x:Key="styleWithTriggerFromNestedProperty">
             <Style.Triggers>
                 <Trigger Property="me:MyCustomButtonWithDataContext.TypedDataContext.MyDependencyProperty" Value="True">
-                    <Setter Property="Control.Foreground" Value="Green" />
+                    <Setter Property="Control.Foreground" Value="#FF38B409" />
                 </Trigger>
             </Style.Triggers>
         </Style>-->
         <Style x:Key="styleWithDataTriggerUsingSetter">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=IsChecked}" Value="True">
-                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF38B409"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="styleWithDataTriggerUsingSetterBindToControl">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
-                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF38B409"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="styleWithDependencyPropertyDataTrigger">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=MyDependencyProperty}" Value="True">
-                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF38B409"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -201,7 +201,7 @@
                         <Condition  Binding="{Binding Path=IsChecked}" Value="True" />
                         <Condition  Binding="{Binding Path=PropertyWithOtherName}" Value="True" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF38B409"></Setter>
                 </MultiDataTrigger>
             </Style.Triggers>
         </Style>
@@ -216,21 +216,21 @@
                             <Binding Path="PropertyWithOtherName" />
                         </MultiBinding>
                     </DataTrigger.Binding>
-                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF38B409"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="styleWithDataTriggerBindByPropertyName">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=PropertyWithName}" Value="True">
-                    <Setter Property="CheckBox.Foreground" Value="Green"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF38B409"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="styleWithDataTriggerBindByNotificationName">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=PropertyWithWrongName}" Value="True">
-                    <Setter Property="CheckBox.Foreground" Value="Blue"></Setter>
+                    <Setter Property="CheckBox.Foreground" Value="#FF00C1FF"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -243,7 +243,7 @@
         </Style>
         <!-- following will not work: we can only set Property Triggers on Dependency Properties -->
         <!--<Style x:Key="triggerFromMuteProperty">
-            <Setter Property="Control.Background" Value="Green" />
+            <Setter Property="Control.Background" Value="#FF38B409" />
             <Style.Triggers>
                 <Trigger Property="me:MyCustomButton.MuteProperty" Value="True">
                     <Setter Property="Control.Foreground" Value="Red" />
@@ -252,7 +252,7 @@
         </Style>-->
         <!-- following will not work: we can only set Property Triggers on Dependency Properties -->
         <!--<Style x:Key="triggerFromNotifyChangedProperty">
-            <Setter Property="Control.Background" Value="Green" />
+            <Setter Property="Control.Background" Value="#FF38B409" />
             <Style.Triggers>
                 <Trigger Property="me:MyCustomButton.NotifyChangesProperty" Value="True">
                     <Setter Property="Control.Foreground" Value="Red" />
@@ -290,7 +290,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation 
-                                Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)" To="#FF38B409" Duration="0:0:0.25" >
                                 </ColorAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -307,7 +307,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation 
-                                Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)" To="#FF38B409" Duration="0:0:0.25" >
                                 </ColorAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -323,7 +323,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation 
-                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.25" >
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="#FF38B409" Duration="0:0:0.25" >
                                 </ColorAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -334,7 +334,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation 
-                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="Blue" Duration="0:0:0.25" >
+                                Storyboard.TargetProperty="(TextBox.Background).(SolidColorBrush.Color)" To="#FF00C1FF" Duration="0:0:0.25" >
                                 </ColorAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -374,7 +374,7 @@
                     <ControlTemplate TargetType="Button">
                         <StackPanel>
                             <ContentPresenter Content="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
-                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="Green" />
+                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="#FF38B409" />
                         </StackPanel>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="true">
@@ -402,7 +402,7 @@
                                 </Style>
                             </StackPanel.Style>
                             <ContentPresenter Content="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
-                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="Green" />
+                            <Label x:Name="ourTarget" Content="Label inside ControlTemplate" Background="#FF38B409" />
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
