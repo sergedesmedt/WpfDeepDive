@@ -24,5 +24,21 @@ namespace Resources
         {
             InitializeComponent();
         }
+
+        private void DynDemoButtonChangeInstanceStat_Click(object sender, RoutedEventArgs e)
+        {
+            DynamicDemos.Resources["BoundAsStaticResource"] = new MyCustomClass() { StringProperty = "BoundAsStaticResourceV2", IntegerPoperty = 1 };
+        }
+
+        private void DynDemoButtonChangeInstanceDyn_Click(object sender, RoutedEventArgs e)
+        {
+            DynamicDemos.Resources["BoundAsDynamicResource"] = new MyCustomClass() { StringProperty = "BoundAsDynamicResourceV2", IntegerPoperty = 1 };
+        }
+
+        private void DynDemoButtonChangeProperty_Click(object sender, RoutedEventArgs e)
+        {
+            var currentInstance = DynamicDemos.Resources["BoundAsDynamicResource"] as MyCustomClass;
+            currentInstance.StringProperty = "BoundAsDynamicResourceChangePropertyV3";
+        }
     }
 }

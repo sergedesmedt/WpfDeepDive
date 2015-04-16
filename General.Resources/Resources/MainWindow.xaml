@@ -3,33 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Resources"
         Title="MainWindow" Height="350" Width="525">
-    <Window.Resources>
-        <local:MyCustomClass x:Key="windowLevelInstance" StringProperty="WindowResource" IntegerPoperty="10" />
-        <!-- we cannot use the same key twice, even if it is for another type of object -->
-        <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance" IntegerPoperty="10" />
-        <!--<Color x:Key="someKeyToAnInstance" >#FFFFFF00</Color>-->
-    </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="{StaticResource windowLevelInstance}"/>
-        <StackPanel Grid.Row="1">
-            <StackPanel.Resources>
-                <local:MyCustomClass x:Key="stackpanelLevelInstance" StringProperty="StackpanelResource" IntegerPoperty="10" />
-            </StackPanel.Resources>
-            <Button Content="{StaticResource stackpanelLevelInstance}"/>
-        </StackPanel>
-        <!-- following will throw an exception at runtime:
-            the resource is not available in this scope -->
-        <!--<Button Content="{StaticResource stackpanelLevelInstance}"/>-->
-        <StackPanel Grid.Row="2">
-            <StackPanel.Resources>
-                <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance (local scope)" IntegerPoperty="10" />
-            </StackPanel.Resources>
-            <Button Content="{StaticResource someKeyToAnInstance}"/>
-        </StackPanel>
-    </Grid>
+    <StackPanel>
+        <GroupBox Header="Static Resource examples">
+            <GroupBox.Resources>
+                <local:MyCustomClass x:Key="groupBoxLevelInstance" StringProperty="GroupBoxResource" IntegerPoperty="10" />
+                <!-- we cannot use the same key twice, even if it is for another type of object -->
+                <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance" IntegerPoperty="10" />
+                <!--<Color x:Key="someKeyToAnInstance" >#FFFFFF00</Color>-->
+            </GroupBox.Resources>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="{StaticResource groupBoxLevelInstance}"/>
+                <StackPanel Grid.Row="1">
+                    <StackPanel.Resources>
+                        <local:MyCustomClass x:Key="stackpanelLevelInstance" StringProperty="StackpanelResource" IntegerPoperty="10" />
+                    </StackPanel.Resources>
+                    <Button Content="{StaticResource stackpanelLevelInstance}"/>
+                </StackPanel>
+                <!-- following will throw an exception at runtime:
+                    the resource is not available in this scope -->
+                <!--<Button Content="{StaticResource stackpanelLevelInstance}"/>-->
+                <StackPanel Grid.Row="2">
+                    <StackPanel.Resources>
+                        <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance (local scope)" IntegerPoperty="10" />
+                    </StackPanel.Resources>
+                    <Button Content="{StaticResource someKeyToAnInstance}"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Name="DynamicDemos" Header="Dynamic Resource examples">
+            <GroupBox.Resources>
+                <local:MyCustomClass x:Key="BoundAsStaticResource" StringProperty="BoundAsStaticResource" IntegerPoperty="1" />
+                <local:MyCustomClass x:Key="BoundAsDynamicResource" StringProperty="BoundAsDynamicResource" IntegerPoperty="1" />
+            </GroupBox.Resources>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="{StaticResource BoundAsStaticResource}"/>
+                <Button Grid.Row="1" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceStat_Click" />
+                <Button Grid.Row="2" Content="{DynamicResource BoundAsDynamicResource}"/>
+                <Button Grid.Row="3" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceDyn_Click" />
+                <Button Grid.Row="4" Content="Change a property of the resource" Click="DynDemoButtonChangeProperty_Click" />
+            </Grid>
+        </GroupBox>
+    </StackPanel>
 </Window>
