@@ -39,9 +39,12 @@
             <GroupBox.Resources>
                 <local:MyCustomClass x:Key="BoundAsStaticResource" StringProperty="BoundAsStaticResource" IntegerPoperty="1" />
                 <local:MyCustomClass x:Key="BoundAsDynamicResource" StringProperty="BoundAsDynamicResource" IntegerPoperty="1" />
+                <SolidColorBrush x:Key="redColor" Color="Red"/>
             </GroupBox.Resources>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -53,6 +56,21 @@
                 <Button Grid.Row="2" Content="{DynamicResource BoundAsDynamicResource}"/>
                 <Button Grid.Row="3" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceDyn_Click" />
                 <Button Grid.Row="4" Content="Change a property of the resource" Click="DynDemoButtonChangeProperty_Click" />
+                <GroupBox Grid.Row="5" Header="Late defined resources">
+                    <Grid>
+                        <!-- Uncomment the following line and start the application
+                            You will receive an exception stating "Provide value on 'System.Windows.StaticResourceExtension' threw an exception"
+                            with an InnerException of "Cannot find resource named 'LateDefinedResource'. Resource names are case sensitive."-->
+                        <!--<Button Content="{StaticResource LateDefinedResource}" />-->
+                        <Button Content="{DynamicResource LateDefinedResource}" />
+                    </Grid>
+                    <GroupBox.Resources>
+                        <local:MyCustomClass x:Key="LateDefinedResource" StringProperty="LateDefinedResource" IntegerPoperty="1" />
+                    </GroupBox.Resources>
+                </GroupBox>
+                <GroupBox Grid.Row="6" Header="Custom control with (then) undefined resourcekey">
+                    <local:UserControlDynResourceDemo />
+                </GroupBox>
             </Grid>
         </GroupBox>
     </StackPanel>
