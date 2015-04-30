@@ -7,6 +7,7 @@
         <Setter Property="Background" Value="#FF32B6A4" />
         <Setter Property="BorderBrush" Value="#FFB8B838" />
     </Style>
+    <SolidColorBrush x:Key="{ComponentResourceKey {x:Type local:DummyClass}, myComponentLibBrush}" Color="Red"/>
     <!-- although we use the same name, this actually is another x:Key because we're
 		using another type in the ComponentResourceKey -->
     <Style x:Key="{ComponentResourceKey {x:Type local:OtherDummyClass}, myComponentLibStyle}" TargetType="Button">

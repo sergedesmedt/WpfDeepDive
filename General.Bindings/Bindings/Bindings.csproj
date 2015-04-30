@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9FA0C4DD-04D2-4D57-A32E-55F43825EEC7}</ProjectGuid>
+    <ProjectGuid>{F8EDC954-BB97-4F0B-804C-22565B6855AD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Resources</RootNamespace>
-    <AssemblyName>Resources</AssemblyName>
+    <RootNamespace>Bindings</RootNamespace>
+    <AssemblyName>Bindings</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -53,37 +53,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ControlFolder\OtherWindow.xaml.cs">
-      <DependentUpon>OtherWindow.xaml</DependentUpon>
+    <Compile Include="BindingToMuteProperties.xaml.cs">
+      <DependentUpon>BindingToMuteProperties.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlDynResourceDemo.xaml.cs">
-      <DependentUpon>UserControlDynResourceDemo.xaml</DependentUpon>
+    <Compile Include="BindingToNotifyPropertyChangedProperties.xaml.cs">
+      <DependentUpon>BindingToNotifyPropertyChangedProperties.xaml</DependentUpon>
     </Compile>
-    <Page Include="ControlFolder\OtherWindow.xaml">
+    <Compile Include="IsCheckedDataContext.cs" />
+    <Compile Include="SomeMuteDataClass.cs" />
+    <Compile Include="SomeNotifyPropertyChangedImplementingClass.cs" />
+    <Compile Include="SpecifyingTheSource.xaml.cs">
+      <DependentUpon>SpecifyingTheSource.xaml</DependentUpon>
+    </Compile>
+    <Page Include="BindingToMuteProperties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ControlFolder\SomeResourceDictionary.xaml">
+    <Page Include="BindingToNotifyPropertyChangedProperties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dictionary2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EqNamedKeyDictionary1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EqNamedKeyDictionary2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Content Include="ExternalDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,21 +85,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ResourceFolder\Dictionary1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SomeResourceDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControlDynResourceDemo.xaml">
+    <Page Include="SpecifyingTheSource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyCustomClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -137,17 +117,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Resources.ResourceLib\Resources.ResourceLib.csproj">
-      <Project>{a6ff6d6b-8069-4824-880b-448c6b59691b}</Project>
-      <Name>Resources.ResourceLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Resources.XamlResourceLib\Resources.XamlResourceLib.csproj">
-      <Project>{ac2985cd-5eeb-4e06-aa9f-45a5124e846e}</Project>
-      <Name>Resources.XamlResourceLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,21 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Resources.ResourceLib">
+    <ResourceDictionary.MergedDictionaries>
+        <!-- following does NOT work -->
+        <!--<ResourceDictionary Source="/Dictionary2.xaml" />-->
+        <!--<ResourceDictionary Source="Dictionary3.xaml" />-->
+        <!-- following does work -->
+        <ResourceDictionary Source="pack://application:,,,/Resources.ResourceLib;component/Dictionary2.xaml" />
+        <!-- this shorter syntax also works -->
+        <!--<ResourceDictionary Source="/Resources.ResourceLib;component/Dictionary2.xaml" />-->
+    </ResourceDictionary.MergedDictionaries>
+    <!-- to make the style available outside the library we MUST use a ComponentResourceKey -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type local:DummyClass}, ResourceId=MyComponentLibBrush}" Color="Red"/>
+    <!-- although we use the same name, this actually is another x:Key because we're
+		using another type in the ComponentResourceKey -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type local:OtherDummyClass}, ResourceId=MyComponentLibBrush}" Color="Green"/>
+    <!-- following style is not available outside this dll -->
+    <SolidColorBrush x:Key="myLibBrush" Color="Red"/>
+</ResourceDictionary>

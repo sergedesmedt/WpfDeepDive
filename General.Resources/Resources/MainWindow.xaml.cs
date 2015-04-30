@@ -40,5 +40,11 @@ namespace Resources
             var currentInstance = DynamicDemos.Resources["BoundAsDynamicResource"] as MyCustomClass;
             currentInstance.StringProperty = "BoundAsDynamicResourceChangePropertyV3";
         }
+
+        private void OpenOtherWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var otherWindow = new ControlFolder.OtherWindow();
+            otherWindow.ShowDialog();
+        }
     }
 }

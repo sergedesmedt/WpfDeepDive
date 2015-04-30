@@ -2,76 +2,191 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Resources"
-        Title="MainWindow" Height="350" Width="525">
-    <StackPanel>
-        <GroupBox Header="Static Resource examples">
-            <GroupBox.Resources>
-                <local:MyCustomClass x:Key="groupBoxLevelInstance" StringProperty="GroupBoxResource" IntegerPoperty="10" />
-                <!-- we cannot use the same key twice, even if it is for another type of object -->
-                <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance" IntegerPoperty="10" />
-                <!--<Color x:Key="someKeyToAnInstance" >#FFFFFF00</Color>-->
-            </GroupBox.Resources>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="{StaticResource groupBoxLevelInstance}"/>
-                <StackPanel Grid.Row="1">
-                    <StackPanel.Resources>
-                        <local:MyCustomClass x:Key="stackpanelLevelInstance" StringProperty="StackpanelResource" IntegerPoperty="10" />
-                    </StackPanel.Resources>
-                    <Button Content="{StaticResource stackpanelLevelInstance}"/>
-                </StackPanel>
-                <!-- following will throw an exception at runtime:
-                    the resource is not available in this scope -->
-                <!--<Button Content="{StaticResource stackpanelLevelInstance}"/>-->
-                <StackPanel Grid.Row="2">
-                    <StackPanel.Resources>
-                        <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance (local scope)" IntegerPoperty="10" />
-                    </StackPanel.Resources>
-                    <Button Content="{StaticResource someKeyToAnInstance}"/>
-                </StackPanel>
-            </Grid>
-        </GroupBox>
-        <GroupBox Name="DynamicDemos" Header="Dynamic Resource examples">
-            <GroupBox.Resources>
-                <local:MyCustomClass x:Key="BoundAsStaticResource" StringProperty="BoundAsStaticResource" IntegerPoperty="1" />
-                <local:MyCustomClass x:Key="BoundAsDynamicResource" StringProperty="BoundAsDynamicResource" IntegerPoperty="1" />
-                <SolidColorBrush x:Key="redColor" Color="Red"/>
-            </GroupBox.Resources>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="{StaticResource BoundAsStaticResource}"/>
-                <Button Grid.Row="1" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceStat_Click" />
-                <Button Grid.Row="2" Content="{DynamicResource BoundAsDynamicResource}"/>
-                <Button Grid.Row="3" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceDyn_Click" />
-                <Button Grid.Row="4" Content="Change a property of the resource" Click="DynDemoButtonChangeProperty_Click" />
-                <GroupBox Grid.Row="5" Header="Late defined resources">
-                    <Grid>
-                        <!-- Uncomment the following line and start the application
-                            You will receive an exception stating "Provide value on 'System.Windows.StaticResourceExtension' threw an exception"
-                            with an InnerException of "Cannot find resource named 'LateDefinedResource'. Resource names are case sensitive."-->
-                        <!--<Button Content="{StaticResource LateDefinedResource}" />-->
-                        <Button Content="{DynamicResource LateDefinedResource}" />
-                    </Grid>
-                    <GroupBox.Resources>
-                        <local:MyCustomClass x:Key="LateDefinedResource" StringProperty="LateDefinedResource" IntegerPoperty="1" />
-                    </GroupBox.Resources>
-                </GroupBox>
-                <GroupBox Grid.Row="6" Header="Custom control with (then) undefined resourcekey">
-                    <local:UserControlDynResourceDemo />
-                </GroupBox>
-            </Grid>
-        </GroupBox>
-    </StackPanel>
+        xmlns:rlib="clr-namespace:Resources.ResourceLib;assembly=Resources.ResourceLib"
+        Title="MainWindow" Height="500" Width="525">
+    <ScrollViewer>
+        <StackPanel>
+            <GroupBox Header="Static Resource examples">
+                <GroupBox.Resources>
+                    <local:MyCustomClass x:Key="groupBoxLevelInstance" StringProperty="GroupBoxResource" IntegerPoperty="10" />
+                    <!-- we cannot use the same key twice, even if it is for another type of object -->
+                    <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance" IntegerPoperty="10" />
+                    <!--<Color x:Key="someKeyToAnInstance" >#FFFFFF00</Color>-->
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="{StaticResource groupBoxLevelInstance}"/>
+                    <StackPanel Grid.Row="1">
+                        <StackPanel.Resources>
+                            <local:MyCustomClass x:Key="stackpanelLevelInstance" StringProperty="StackpanelResource" IntegerPoperty="10" />
+                        </StackPanel.Resources>
+                        <Button Content="{StaticResource stackpanelLevelInstance}"/>
+                    </StackPanel>
+                    <!-- following will throw an exception at runtime:
+                        the resource is not available in this scope -->
+                    <!--<Button Content="{StaticResource stackpanelLevelInstance}"/>-->
+                    <StackPanel Grid.Row="2">
+                        <StackPanel.Resources>
+                            <local:MyCustomClass x:Key="someKeyToAnInstance" StringProperty="An Instance (local scope)" IntegerPoperty="10" />
+                        </StackPanel.Resources>
+                        <Button Content="{StaticResource someKeyToAnInstance}"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox Name="DynamicDemos" Header="Dynamic Resource examples">
+                <GroupBox.Resources>
+                    <local:MyCustomClass x:Key="BoundAsStaticResource" StringProperty="BoundAsStaticResource" IntegerPoperty="1" />
+                    <local:MyCustomClass x:Key="BoundAsDynamicResource" StringProperty="BoundAsDynamicResource" IntegerPoperty="1" />
+                    <SolidColorBrush x:Key="redColor" Color="Red"/>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="{StaticResource BoundAsStaticResource}"/>
+                    <Button Grid.Row="1" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceStat_Click" />
+                    <Button Grid.Row="2" Content="{DynamicResource BoundAsDynamicResource}"/>
+                    <Button Grid.Row="3" Content="Change the instance of the resource" Click="DynDemoButtonChangeInstanceDyn_Click" />
+                    <Button Grid.Row="4" Content="Change a property of the resource" Click="DynDemoButtonChangeProperty_Click" />
+                    <GroupBox Grid.Row="5" Header="Late defined resources">
+                        <Grid>
+                            <!-- Uncomment the following line and start the application
+                                You will receive an exception stating "Provide value on 'System.Windows.StaticResourceExtension' threw an exception"
+                                with an InnerException of "Cannot find resource named 'LateDefinedResource'. Resource names are case sensitive."-->
+                            <!--<Button Content="{StaticResource LateDefinedResource}" />-->
+                            <Button Content="{DynamicResource LateDefinedResource}" />
+                        </Grid>
+                        <GroupBox.Resources>
+                            <local:MyCustomClass x:Key="LateDefinedResource" StringProperty="LateDefinedResource" IntegerPoperty="1" />
+                        </GroupBox.Resources>
+                    </GroupBox>
+                    <GroupBox Grid.Row="6" Header="Custom control with (then) undefined resourcekey">
+                        <local:UserControlDynResourceDemo />
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Resources from external libraries">
+                <GroupBox.Resources>
+                    <SolidColorBrush x:Key="redColor" Color="Red"/>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Backgroundcolor from this application" Background="{StaticResource redColor}"/>
+                    <Button Grid.Row="1" Content="Backgroundcolor from external library using DummyClass type" Background="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type rlib:DummyClass}, ResourceId=MyComponentLibBrush}}"/>
+                    <Button Grid.Row="2" Content="Backgroundcolor from external library using OtherDummyClass type" Background="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type rlib:OtherDummyClass}, ResourceId=MyComponentLibBrush}}"/>
+                    <!--<Button Grid.Row="3" Content="Backgroundcolor from external library using regular key" Background="{StaticResource myLibBrush}"/>-->
+                    <!--<Button Grid.Row="4" Content="Backgroundcolor from external library using ComponentResourceKey only in the client" Background="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type rlib:DummyClass}, ResourceId=myLibBrush}}"/>-->
+                    <!--<Button Grid.Row="5" Content="Backgroundcolor from external library using ComponentResourceKey only in the client" Background="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type rlib:DummyClass}, ResourceId=UnreferencableComponentLibBrush}}"/>-->
+                    <!-- this does work -->
+                    <Button Grid.Row="5" Content="Backgroundcolor from external library using MergedDictionary in Generic.xaml" Background="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type rlib:DummyClass}, ResourceId=ReferencableComponentLibBrush}}"/>
+                    <!-- Following does not work -->
+                    <!--<Button Grid.Row="6" Content="Backgroundcolor from local using MergedDictionary in external Generic.xaml" Background="{StaticResource UnReferencableLocalBrush}"/>-->
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Mergedresourcedictionary">
+                <GroupBox.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="SomeResourceDictionary.xaml"/>
+                            <ResourceDictionary Source="pack://application:,,,/Resources.XamlResourceLib;component/Dictionary1.xaml"/>
+                            <ResourceDictionary Source="ExternalDictionary.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                        <SolidColorBrush x:Key="redColor" Color="Red"/>
+                    </ResourceDictionary>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Background color comming from resource in the GroupBox" Background="{StaticResource redColor}" />
+                    <Button Grid.Row="1" Content="Background color comming from merged resource in the GroupBox" Background="{StaticResource yellowInSomeResourceDictionary}" />
+                    <Button Grid.Row="2" Content="Background color comming from merged resource with library source in the GroupBox" Background="{StaticResource blueInXamlLibResourceDictionary}" />
+                    <Button Grid.Row="3" Content="Background color comming from merged resource with exteral source in the GroupBox" Background="{StaticResource externalBrush}" />
+                    <Button Grid.Row="4" Content="Open OtherWindow" Click="OpenOtherWindow_Click" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Mergedresourcedictionary: Equally named keys and Ordering: Case 1">
+            <!-- Multiple merges with same key -->
+                <GroupBox.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="EqNamedKeyDictionary1.xaml"/>
+                            <ResourceDictionary Source="EqNamedKeyDictionary2.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Button with Background from equally named keys" Background="{StaticResource commonKeyDictionary}" />
+                    <Button Grid.Row="1" Content="Button with Background from unique key 1" Background="{StaticResource uniqueKeyIn1Dictionary}" />
+                    <Button Grid.Row="2" Content="Button with Background from unique key 2" Background="{StaticResource uniqueKeyIn2Dictionary}" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Mergedresourcedictionary: Equally named keys and Ordering: Case 2">
+                <!-- Multiple merges with same key -->
+                <GroupBox.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="EqNamedKeyDictionary1.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                        <SolidColorBrush x:Key="commonKeyDictionary" Color="Blue"/>
+                    </ResourceDictionary>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Button with Background from equally named keys" Background="{StaticResource commonKeyDictionary}" />
+                    <Button Grid.Row="1" Content="Button with Background from unique key 1" Background="{StaticResource uniqueKeyIn1Dictionary}" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Mergedresourcedictionary: Equally named keys and Ordering: Case 3">
+                <!-- Multiple merges with same key -->
+                <GroupBox.Resources>
+                    <ResourceDictionary>
+                        <SolidColorBrush x:Key="commonKeyDictionary" Color="Blue"/>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="EqNamedKeyDictionary1.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </GroupBox.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Button with Background from equally named keys" Background="{StaticResource commonKeyDictionary}" />
+                    <Button Grid.Row="1" Content="Button with Background from unique key 1" Background="{StaticResource uniqueKeyIn1Dictionary}" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

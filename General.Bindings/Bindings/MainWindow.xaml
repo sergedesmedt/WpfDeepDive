@@ -1,0 +1,15 @@
+﻿<Window x:Class="Bindings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="Open dialog bound to mute properties" Click="ButtonMuteProperties_Click"/>
+        <Button Grid.Row="1" Content="Open dialog bound to notifying properties" Click="ButtonNotifyingProperties_Click"/>
+        <Button Grid.Row="2" Content="Open dialog bound to notifying properties" Click="SpecifyingTheSource_Click"/>
+    </Grid>
+</Window>

@@ -233,7 +233,8 @@
         <StackPanel Grid.Row="3" Margin="5">
 			<!-- You must also use a ComponentResourceKey in the client -->
             <!--<Button Content="Button (with libstyle from componentkey)" Style="{StaticResource myComponentLibStyle}" />-->
-            <Button Content="Button (with libstyle from componentkey)" Style="{StaticResource {ComponentResourceKey {x:Type slib:DummyClass}, myComponentLibStyle}}" />
+                <Button Content="Button (with background from componentkey)" Background="{StaticResource {ComponentResourceKey {x:Type slib:DummyClass}, myComponentLibBrush}}" />
+                <Button Content="Button (with libstyle from componentkey)" Style="{StaticResource {ComponentResourceKey {x:Type slib:DummyClass}, myComponentLibStyle}}" />
             <Button Content="Button (with libstyle from other componentkey)" Style="{StaticResource {ComponentResourceKey {x:Type slib:OtherDummyClass}, myComponentLibStyle}}" />
             <!--<Button Content="Button (with libstyle)" Style="{StaticResource myLibStyle}" />-->
             <!--<Button Content="Button (with libstyle from componentkey)" Style="{StaticResource {ComponentResourceKey {x:Type slib:DummyClass}, myLibStyle}}" />-->
