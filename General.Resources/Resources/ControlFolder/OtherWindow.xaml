@@ -19,7 +19,7 @@
             <Button Content="Button with Backround from entry in Absolute SomeResourceDictionary.xaml" Background="{StaticResource redInSomeResourceDictionary}" />
             <Button Content="Button with Backround from entry in Absolute ResourceFolder/Dictionary1.xaml" Background="{StaticResource magentaInResourceFolderDictionary1}" />
         </StackPanel>
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="1">
             <StackPanel.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>

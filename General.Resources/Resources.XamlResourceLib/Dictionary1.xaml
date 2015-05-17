@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="blueInXamlLibResourceDictionary" >Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="blueInXamlLibResourceDictionary" >DeepSkyBlue</SolidColorBrush>
     <SolidColorBrush x:Key="yellowInXamlLibResourceDictionary" >Yellow</SolidColorBrush>
 </ResourceDictionary>

@@ -13,7 +13,7 @@ namespace Resources
 
         public override string ToString()
         {
-            return "This MyCustomClass instance has a value for StringProperty of [" + StringProperty + "] and a value of IntegerProperty of [" + IntegerPoperty + "]";
+            return "This MyCustomClass instance\n has a value for StringProperty of [" + StringProperty + "] \n and a value of IntegerProperty of [" + IntegerPoperty + "]";
         }
     }
 }
