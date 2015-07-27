@@ -1,0 +1,58 @@
+﻿<Window xmlns:CustomControlLib="clr-namespace:WpfVisualCustomization.Templating.CustomControlLib;assembly=WpfVisualCustomization.Templating.CustomControlLib"  x:Class="WpfVisualCustomization.Templating.ControlBasedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <!-- if you don't specify a ContentPresener, then nothing will be shown -->
+        <ControlTemplate x:Key="templateWithNoContent" TargetType="{x:Type Button}">
+            <Border Background="Red" />
+        </ControlTemplate>
+        <ControlTemplate x:Key="templateWithContent" TargetType="{x:Type Button}">
+            <Border BorderBrush="Green" BorderThickness="5" >
+                <ContentPresenter />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="templateWithBinding" TargetType="{x:Type Button}">
+            <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="5" >
+                <ContentPresenter />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="templateWithRelativeBinding" TargetType="{x:Type Button}">
+            <!-- Don't specify the class type in de path: ollowing will not work
+                {Binding RelativeSource={RelativeSource TemplatedParent}, Path=Control.BorderBrush}
+            -->
+            <Border BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" BorderThickness="5" >
+                <ContentPresenter />
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="A default button" />
+        <Button Grid.Row="1" >
+            <StackPanel>
+                <TextBox Text="A button with some strange content" />
+            </StackPanel>
+        </Button>
+        <!-- We need a ContentPresenter in our template to be able to display something -->
+        <Button Grid.Row="2" Content="A (wrongly) templated button" Template="{StaticResource ResourceKey=templateWithNoContent}" />
+        <Button Grid.Row="3" Content="A (rightly) templated button" Template="{StaticResource ResourceKey=templateWithContent}" />
+        <Button Grid.Row="4" Content="A templated button with binding No Value" Template="{StaticResource ResourceKey=templateWithBinding}" />
+        <Button Grid.Row="5" Content="A templated button with binding and Value" BorderBrush="Brown" Template="{StaticResource ResourceKey=templateWithBinding}" />
+        <Button Grid.Row="6" Content="A templated button with relative binding and Value" BorderBrush="Red" Template="{StaticResource ResourceKey=templateWithRelativeBinding}" />
+        <CustomControlLib:CustomControl Grid.Row="7" Text="Editbox with button" />
+        <CustomControlLib:CustomContentControl Grid.Row="8" Content="Editbox with button" />
+        <CustomControlLib:CustomControlWithEventBinding Grid.Row="9" Text="Editbox with button" />
+    </Grid>
+</Window>

@@ -33,6 +33,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfVisualCustomization.Trig
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntoTriggers", "IntoTriggers", "{09D9D249-0A09-4B2B-B375-92D78528B2FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntoTemplates", "IntoTemplates", "{40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfVisualCustomization.Templating", "VisualCustomization.Templating\WpfVisualCustomization.Templating\WpfVisualCustomization.Templating.csproj", "{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfVisualCustomization.Templating.CustomControlLib", "VisualCustomization.Templating\WpfVisualCustomization.Templating.CustomControlLib\WpfVisualCustomization.Templating.CustomControlLib.csproj", "{D542289C-D4E4-4CDD-9D9C-46B14EA64854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfVisualCustomization.Templating.UserControlLib", "VisualCustomization.Templating\WpfVisualCustomization.Templating.UserControlLib\WpfVisualCustomization.Templating.UserControlLib.csproj", "{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +95,18 @@ Global
 		{3FA4223D-A161-4952-A661-DA1C6B228D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FA4223D-A161-4952-A661-DA1C6B228D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FA4223D-A161-4952-A661-DA1C6B228D55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D542289C-D4E4-4CDD-9D9C-46B14EA64854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D542289C-D4E4-4CDD-9D9C-46B14EA64854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D542289C-D4E4-4CDD-9D9C-46B14EA64854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D542289C-D4E4-4CDD-9D9C-46B14EA64854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,5 +124,8 @@ Global
 		{A4AA9715-B269-4DC8-A78A-4EF0AE24148E} = {4335C011-1602-423C-8F17-29A6B03F1639}
 		{3178675D-59B8-4B5B-8A85-C0E779BD2D60} = {09D9D249-0A09-4B2B-B375-92D78528B2FA}
 		{3FA4223D-A161-4952-A661-DA1C6B228D55} = {09D9D249-0A09-4B2B-B375-92D78528B2FA}
+		{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7} = {40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}
+		{D542289C-D4E4-4CDD-9D9C-46B14EA64854} = {40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}
+		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6} = {40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}
 	EndGlobalSection
 EndGlobal
