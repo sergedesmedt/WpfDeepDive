@@ -1,0 +1,86 @@
+﻿<Window x:Class="Bindings.ItemsControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Bindings.ItemsControl"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:ForwardingValueConverter x:Key="myConverter"/>
+    </Window.Resources>
+    <ScrollViewer>
+        <StackPanel>
+            <GroupBox Header="Simple Observable Collection">
+                <StackPanel>
+                    <ListBox ItemsSource="{Binding Path=ObservableSource}" />
+                    <!-- The converter is applied to the collection and NOT to the items in the collection -->
+                    <ListBox ItemsSource="{Binding Path=ObservableSource, Converter={StaticResource myConverter}}" />
+                    <ListBox ItemsSource="{Binding Path=ObservableSource}"  />
+                    <ListBox ItemsSource="{Binding Path=ObservableSource}" ItemStringFormat="Formatted - {0}" />
+                    <!-- you will be notified of changes in theh collection -->
+                    <Button Click="AddToObservableSource">Add to ObservableSource</Button>
+                    <Button Click="RemoveFromObservableSource">Remove from ObservableSource</Button>
+                    <Button Click="ChangeInObservableSource">Change in ObservableSource</Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Simple List Collection">
+                <StackPanel>
+                    <ListBox ItemsSource="{Binding Path=ListSource}"/>
+                    <!-- you will NOT be notified of changes in the list, after all
+                        there is no notification mechanism -->
+                    <Button Click="AddToListSource">Add to ListSource</Button>
+                    <Button Click="RemoveFromListSource">Remove from ListSource</Button>
+                    <Button Click="ChangeInListSource">Change in ListSource</Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Complex Observable Collection">
+                <StackPanel>
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="MuteProperty" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
+                    <!-- ItemStringFormat does not give you access to properties -->
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" ItemStringFormat="Formatted - {MuteProperty}" />
+                    <!-- you will be notified of changes in the collection -->
+                    <Button Click="AddToComplexObservableSource">Add to ComplexObservableSource</Button>
+                    <Button Click="RemoveFromComplexObservableSource">Remove from ComplexObservableSource</Button>
+                    <Button Click="ChangeMuteInComplexObservableSource">Change Mute in ComplexObservableSource</Button>
+                    <Button Click="ChangeNotifyingInComplexObservableSource">Change Notifying in ComplexObservableSource</Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Simple Observable Collection: Synchronization">
+                <StackPanel>
+                    <!-- we are not simply binding to the ObservableCollection but instead
+                        we are binding to a view on the ObservableCollection -->
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Simple List Collection: Synchronization">
+                <StackPanel>
+                    <!-- The above is not caused by the use of ObservableCollection
+                        it also works with a simple List -->
+                    <ListBox ItemsSource="{Binding Path=ComplexListSource}" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
+                    <ListBox ItemsSource="{Binding Path=ComplexListSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                    <ListBox ItemsSource="{Binding Path=ComplexListSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Simple Observable Collection: Synchronization and SelectedItem">
+                <StackPanel>
+                    <!-- The synchronization is maintained -->
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" SelectedItem="{Binding Path=SelectedInObservable}" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                    <Button Content="Set Selected to second item in collection" Click="SetSelectedInObservable" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Simple Observable Collection: Synchronization and SelectedValue">
+                <StackPanel>
+                    <!--  -->
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" SelectedValue="{Binding SelectedValueInObservable}" SelectedValuePath="NotifyingProperty" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                    <!-- we are only setting the value of the porperty, but the selection is updated to the complete object 
+                        and as above, the synchronization is maintained-->
+                    <Button Content="Set Selected to a property of second item in collection" Click="SetSelectedValueInObservable" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

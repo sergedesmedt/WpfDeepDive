@@ -7,9 +7,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="Open dialog bound to mute properties" Click="ButtonMuteProperties_Click"/>
         <Button Grid.Row="1" Content="Open dialog bound to notifying properties" Click="ButtonNotifyingProperties_Click"/>
-        <Button Grid.Row="2" Content="Open dialog bound to notifying properties" Click="SpecifyingTheSource_Click"/>
+        <Button Grid.Row="2" Content="Open dialog specifying the source" Click="SpecifyingTheSource_Click"/>
+        <Button Grid.Row="3" Content="Open dialog specifying the path" Click="SpecifyingThePath_Click"/>
+        <Button Grid.Row="4" Content="Open dialog bindingmode" Click="BindingMode_Click"/>
+        <Button Grid.Row="5" Content="Open dialog updatesourcetrigger" Click="UpdateSourceTrigger_Click"/>
+        <Button Grid.Row="6" Content="Open dialog multibinding" Click="MultiBinding_Click"/>
+        <Button Grid.Row="7" Content="Open dialog prioritybinding" Click="PriorityBinding_Click"/>
     </Grid>
 </Window>

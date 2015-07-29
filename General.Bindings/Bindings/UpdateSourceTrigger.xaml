@@ -1,0 +1,81 @@
+﻿<Window x:Class="Bindings.UpdateSourceTrigger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UpdateSourceTrigger" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Unspecified on textbox">
+            <StackPanel>
+                <TextBox Name="TextSource" Text="TextBox"/>
+                <TextBox Text="{Binding ElementName=TextSource, Path=Text}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Unspecified on slider">
+            <StackPanel>
+                <Slider x:Name="Slider0" Value="{Binding ElementName=SliderSource,Path=Text}"/>
+                <TextBox x:Name="SliderSource" Text="6"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="Default on textbox">
+            <StackPanel>
+                <TextBox Name="TextSourceDef" Text="TextBox"/>
+                <TextBox Text="{Binding ElementName=TextSourceDef, Path=Text, UpdateSourceTrigger=Default}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Header="Default on slider">
+            <StackPanel>
+                <Slider Value="{Binding ElementName=SliderSourceDef,Path=Text, UpdateSourceTrigger=Default}"/>
+                <TextBox x:Name="SliderSourceDef" Text="6"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="4" Header="LostFocus on textbox">
+            <StackPanel>
+                <TextBox Name="TextSource1" Text="TextBox"/>
+                <TextBox Text="{Binding ElementName=TextSource1, Path=Text, UpdateSourceTrigger=LostFocus}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="5" Header="PropertyChanged on textbox">
+            <StackPanel>
+                <TextBox Name="TextSource2" Text="TextBox"/>
+                <TextBox Text="{Binding ElementName=TextSource2, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="6" Header="LostFocus on slider">
+            <StackPanel>
+                <Slider Value="{Binding ElementName=SliderSource1, Path=Text, UpdateSourceTrigger=LostFocus}"/>
+                <TextBox x:Name="SliderSource1" Text="6"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="7" Header="PropertyChanged on slider">
+            <StackPanel>
+                <Slider Value="{Binding ElementName=SliderSource2, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="SliderSource2" Text="6"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="8" Header="Explicit on textbox">
+            <StackPanel>
+                <TextBox Name="TextSource3" Text="TextBox"/>
+                <TextBox Name="TextEplicit" Text="{Binding ElementName=TextSource3, Path=Text, UpdateSourceTrigger=Explicit}"/>
+                <Button Content="Trigger binding" Click="ButtonTriggerText_Click" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="9" Header="Explicit on slider">
+            <StackPanel>
+                <Slider Name="SliderExplicit" Value="{Binding ElementName=SliderSource3, Path=Text, UpdateSourceTrigger=Explicit}"/>
+                <TextBox x:Name="SliderSource3" Text="6"/>
+                <Button Content="Trigger binding" Click="ButtonTriggerSlider_Click" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

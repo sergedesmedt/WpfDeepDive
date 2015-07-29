@@ -1,0 +1,48 @@
+﻿<Window x:Class="Bindings.BindingMode"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BindingMode" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="TwoWay binding" >
+            <StackPanel>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=TwoWay, Path=TwoWayBindingProperty}"/>
+                <Button Content="Set the datacontext property to 'Some Text'" Click="TwoWaySetPropertyValue_Click"/>
+                <Button Content="Get the datacontext property" Click="TwoWayGetPropertyValue_Click"/>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=TwoWay, Path=TwoWayBindingProperty}"/>
+                <!-- following will throw an exception on execution -->
+                <!--<TextBox TextWrapping="Wrap" Text="{Binding Mode=TwoWay, Path=ReadOnlyProperty}"/>-->
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="OneWay binding" >
+            <StackPanel>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWay, Path=OneWayBindingProperty}"/>
+                <Button Content="Get the datacontext property" Click="OneWayGetPropertyValue_Click"/>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWay, Path=OneWayBindingPropertyFullProp}"/>
+                <Button Content="Set the datacontext property to 'OneWay: Some Text'" Click="OneWayFullPropSetPropertyValue_Click"/>
+                <Button Content="Get the datacontext property" Click="OneWayFullPropGetPropertyValue_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="OneWayToSource binding" >
+            <StackPanel>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWayToSource, Path=OneWayToSourceBindingProperty}"/>
+                <Button Content="Set the datacontext property to 'OneWayToSource: Some Text'" Click="OneWayToSourceSetPropertyValue_Click"/>
+                <Button Content="Get the datacontext property" Click="OneWayToSourceGetPropertyValue_Click"/>
+                <!--<TextBox TextWrapping="Wrap" Text="This doesn't work" ActualWidth="{Binding Mode=OneWayToSource, Path=OneWayToSourceBindingProperty}"/>-->
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWayToSource, Path=OneWayToSourceGetIsCalledProperty}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Header="OneTime binding" >
+            <StackPanel>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneTime, Path=OneTimeBindingProperty}"/>
+                <Button Content="Set the datacontext property to 'Some Text'" Click="OneTimeSetPropertyValue_Click"/>
+                <Button Content="Get the datacontext property" Click="OneTimeGetPropertyValue_Click"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

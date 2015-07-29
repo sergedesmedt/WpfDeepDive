@@ -1,0 +1,45 @@
+﻿<Window x:Class="Bindings.MultiBinding"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Bindings"
+        Title="MultiBinding" Height="300" Width="300">
+    <Window.Resources>
+        <local:MyMultiBindingConverter x:Key="myConverter"/>
+        <local:IntelligentMultiBindingConverter x:Key="intelligentConverter"/>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBox Name="TB1" Text="Text1"/>
+            <TextBox Name="TB2" Text="Text2" />
+            <TextBox Name="TB3" Text="Text3" />
+            <TextBlock>
+                <TextBlock.Text>
+                    <!-- http://stackoverflow.com/questions/9001974/strange-multibinding-stringformat-issue -->
+                    <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                        <Binding ElementName="TB1" Path="Text" />
+                        <Binding ElementName="TB2" Path="Text" />
+                        <Binding ElementName="TB3" Path="Text" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource intelligentConverter}">
+                        <Binding ElementName="TB1" Path="Text" />
+                        <Binding ElementName="TB2" Path="Text" />
+                        <Binding ElementName="TB3" Path="Text" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBox>
+                <TextBox.Text>
+                    <MultiBinding Converter="{StaticResource myConverter}">
+                        <Binding ElementName="TB1" Path="Text" />
+                        <Binding ElementName="TB2" Path="Text" />
+                        <Binding ElementName="TB3" Path="Text" />
+                    </MultiBinding>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
+    </Grid>
+</Window>

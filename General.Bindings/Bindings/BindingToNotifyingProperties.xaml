@@ -1,0 +1,38 @@
+﻿<Window x:Class="Bindings.BindingToNotifyingProperties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Bindings"
+        Title="BindingToNotifyPropertyChangedProperties" Height="300" Width="300">
+    <Window.Resources>
+        <!-- Following will not compile: you can only specify dependency properties of dependency objects as the target -->
+        <!--
+        <local:SomeNotifyPropertyChangedImplementingClass x:Key="theSource" NotifyingProperty="{Binding Source=chkPropertyIsPresent, Path=IsChecked}" />
+        -->
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="INotifyPropertyChanged bindings">
+            <StackPanel>
+                <!-- a simple binding -->
+                <TextBox Text="{Binding Path=NotifyingProperty}" />
+                <Button Content="Change the notifying property to another value" Click="ButtonSet_Click" />
+                <Button Content="Get the notifying property" Click="ButtonGet_Click" />
+                <!-- binding to a property which exists on the control but not on the datacontext -->
+                <CheckBox Name="chkPropertyNotPresent" Content="{Binding Path=IsChecked}" IsChecked="False" />
+                <Button Content="Toggle the IsChecked of the above CheckBox" Click="ToggleCheckBoxIsChecked_Click" />
+                <!-- binding to a property which exists on the control and also on the datacontext -->
+                <CheckBox Name="chkPropertyIsPresent" Content="{Binding Path=IsChecked}" IsChecked="False" />
+                <Button Content="Toggle the DataContext IsChecked property in the above CheckBox" Click="ToggleDataContextIsChecked_Click" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Dependency Property bindings">
+            <StackPanel>
+                <TextBox Name="SrcTextBox" Text="type here to change text on button"/>
+                <Button Content="{Binding ElementName=SrcTextBox, Path=Text}" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -33,13 +33,43 @@ namespace Bindings
 
         private void ButtonNotifyingProperties_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new BindingToNotifyPropertyChangedProperties();
+            var dialog = new BindingToNotifyingProperties();
             dialog.ShowDialog();
         }
 
         private void SpecifyingTheSource_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new SpecifyingTheSource();
+            dialog.ShowDialog();
+        }
+
+        private void SpecifyingThePath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SpecifyingThePath();
+            dialog.ShowDialog();
+        }
+
+        private void BindingMode_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new BindingMode();
+            dialog.ShowDialog();
+        }
+
+        private void MultiBinding_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new MultiBinding();
+            dialog.ShowDialog();
+        }
+
+        private void PriorityBinding_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new PriorityBinding();
+            dialog.ShowDialog();
+        }
+
+        private void UpdateSourceTrigger_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new UpdateSourceTrigger();
             dialog.ShowDialog();
         }
     }

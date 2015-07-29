@@ -5,11 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bindings
+namespace Bindings.ItemsControl
 {
-    public class SomeNotifyPropertyChangedImplementingClass : INotifyPropertyChanged
+    class ComplexClass : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string MuteProperty
+        {
+            get;
+            set;
+        }
 
         string m_notifyingProperty;
         public string NotifyingProperty
@@ -20,18 +26,6 @@ namespace Bindings
                 m_notifyingProperty = value;
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("NotifyingProperty"));
-            }
-        }
-
-        object m_objectProperty;
-        public object ObjectProperty
-        {
-            get { return m_objectProperty; }
-            set
-            {
-                m_objectProperty = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ObjectProperty"));
             }
         }
     }

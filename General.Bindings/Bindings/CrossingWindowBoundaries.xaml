@@ -1,0 +1,8 @@
+﻿<Window x:Class="Bindings.CrossingWindowBoundaries"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CrossingWindowBoundaries" Height="300" Width="300">
+    <Grid>
+        <Button Name="BtnInOtherWindow" Background="Yellow">A button in another window</Button>
+    </Grid>
+</Window>

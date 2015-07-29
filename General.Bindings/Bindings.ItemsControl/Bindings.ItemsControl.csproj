@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8EDC954-BB97-4F0B-804C-22565B6855AD}</ProjectGuid>
+    <ProjectGuid>{27C15B45-D788-4FBA-BE0C-12140A66700E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bindings</RootNamespace>
-    <AssemblyName>Bindings</AssemblyName>
+    <RootNamespace>Bindings.ItemsControl</RootNamespace>
+    <AssemblyName>Bindings.ItemsControl</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -24,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +32,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,60 +53,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BindingMode.xaml.cs">
-      <DependentUpon>BindingMode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BindingModeDataContext.cs" />
-    <Compile Include="BindingToMuteProperties.xaml.cs">
-      <DependentUpon>BindingToMuteProperties.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BindingToNotifyingProperties.xaml.cs">
-      <DependentUpon>BindingToNotifyingProperties.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CrossingWindowBoundaries.xaml.cs">
-      <DependentUpon>CrossingWindowBoundaries.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="IntelligentMultiBindingConverter.cs" />
-    <Compile Include="IsCheckedDataContext.cs" />
-    <Compile Include="MultiBinding.xaml.cs">
-      <DependentUpon>MultiBinding.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MyMultiBindingConverter.cs" />
-    <Compile Include="PriorityBinding.xaml.cs">
-      <DependentUpon>PriorityBinding.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PriorityBindingAsync.xaml.cs">
-      <DependentUpon>PriorityBindingAsync.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SimpleValueConverter.cs" />
-    <Compile Include="SomeMuteDataClass.cs" />
-    <Compile Include="SomeNotifyPropertyChangedImplementingClass.cs" />
-    <Compile Include="SpecifyingThePath.xaml.cs">
-      <DependentUpon>SpecifyingThePath.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SpecifyingThePathDataContext.cs" />
-    <Compile Include="SpecifyingTheSource.xaml.cs">
-      <DependentUpon>SpecifyingTheSource.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UpdateSourceTrigger.xaml.cs">
-      <DependentUpon>UpdateSourceTrigger.xaml</DependentUpon>
-    </Compile>
-    <Page Include="BindingMode.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BindingToMuteProperties.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BindingToNotifyingProperties.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CrossingWindowBoundaries.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,36 +61,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ComplexClass.cs" />
+    <Compile Include="ForwardingValueConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MultiBinding.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PriorityBinding.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PriorityBindingAsync.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SpecifyingThePath.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SpecifyingTheSource.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UpdateSourceTrigger.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

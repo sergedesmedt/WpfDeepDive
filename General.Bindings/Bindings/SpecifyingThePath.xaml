@@ -1,0 +1,85 @@
+﻿<Window x:Class="Bindings.SpecifyingThePath"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SpecifyingThePath" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!-- nested properties -->
+        <GroupBox Grid.Row="0" Header="Nested Properties">
+            <StackPanel>
+                <TextBox Text="{Binding Path=SubclassProperty.SubNotifyingProperty}" />
+                <CheckBox Name="CheckSubClassNotification" Content="Enable NotifyPropertyChanged on SubClass" Click="CheckSubClassNotification_Click" />
+                <CheckBox Name="CheckMainClassNotification" Content="Enable NotifyPropertyChanged on SpecifyingThePathDataContext" Click="CheckMainClassNotification_Click" />
+                <Button Content="Set subproperty to value 'Sub new value'" Click="ButtonSet_Click" />
+                <Button Content="Get subproperty value" Click="ButtonGet_Click" />
+                <Button Content="Set complete object to new value" Click="ButtonSetObject_Click" />
+            </StackPanel>
+        </GroupBox>
+        <!-- get at element at index in a collection of simple values -->
+        <GroupBox Grid.Row="1" Header="Collections of simple values">
+            <StackPanel>
+                <TextBox Text="{Binding Path=SimpleObservableCollectionProperty[1]}" />
+                <!-- what if we, after the initial binding, change the object on that location? -->
+                <Button Content="Observable: Change value at index 1" Click="ButtonChangeObservableColl_Click" />
+                <Button Content="Observable: Delete value at index 1" Click="ButtonDeleteObservableColl_Click" />
+                <!-- once again for a list of simple values -->
+                <TextBox Text="{Binding Path=SimpleMuteCollectionProperty[1]}" />
+                <Button Content="Mute: Change value at index 1" Click="ButtonChangeMuteColl_Click" />
+                <Button Content="Mute: Delete value at index 1" Click="ButtonDeleteMuteColl_Click" />
+                <!-- once again for an array of simple values -->
+                <TextBox Text="{Binding Path=SingleDimensionalArrayProperty[1]}" />
+            </StackPanel>
+        </GroupBox>
+        <!-- get at element at index in a collection of class type values -->
+        <GroupBox Grid.Row="2" Header="Collections of complex values">
+            <StackPanel>
+                <TextBox Text="{Binding Path=ComplexObservableCollectionProperty[1].SubNotifyingProperty}" />
+                <!-- what if we, after the initial binding, change the object on that location? -->
+                <Button Content="Observable: Change object at index 1" Click="ButtonChangeObservableColComplexChange_Click" />
+                <!-- what if we, after the initial binding, move to object to a different location?
+                    is our binding still valid ?-->
+                <Button Content="Observable: Move object at index 0 to index 1" Click="ButtonChangeObservableCollComplexMove_Click" />
+                <!-- what if we, after the initial binding, just change the property ?-->
+                <Button Content="Observable: Changeproperty at index 1" Click="ButtonChangeObservableCollComplexPropChange_Click" />
+            </StackPanel>
+        </GroupBox>
+        <!-- Multidimensional indexers -->
+        <GroupBox Grid.Row="3" Header="Multidimensional indexers">
+            <StackPanel>
+                <!--<TextBox Text="{Binding [0\,1], Mode=OneWay}" />-->
+                <TextBox Text="{Binding [0\,1]}" />
+                <Button Content="Get the element at index [0,1]" Click="ButtonChangeGetMultiDim_Click" />
+                <Button Content="Set the element at index [0,1]" Click="ButtonChangeSetMultiDim_Click" />
+                <!-- Unfortunately, using a similar syntax for a multidimensional property doesn't work !!! -->
+                <!--<TextBox Text="{Binding Path=MultiDimensionalArrayProperty[0\,1]}" />-->
+            </StackPanel>
+        </GroupBox>
+        <!-- Collection view -->
+        <GroupBox Grid.Row="4" Header="Collection view">
+            <StackPanel>
+                <TextBox Text="{Binding SimpleCollectionView/}" />
+                <Button Content="Move CurrentItem to next item" Click="ButtonMoveCurrentSimpleView" />
+                <TextBox Text="{Binding ComplexCollectionView/SubNotifyingProperty}" />
+                <TextBox Text="{Binding ComplexCollectionView/SubSimpleCollectionView/}" />
+                <Button Content="Move CurrentItem to next item" Click="ButtonMoveCurrentComplexView" />
+                <Button Content="Move Nested CurrentItem to next item" Click="ButtonMoveNestedCurrentComplexView" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
