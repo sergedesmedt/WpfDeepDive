@@ -40,7 +40,7 @@
         <GroupBox Grid.Row="3" Header="OneTime binding" >
             <StackPanel>
                 <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneTime, Path=OneTimeBindingProperty}"/>
-                <Button Content="Set the datacontext property to 'Some Text'" Click="OneTimeSetPropertyValue_Click"/>
+                <Button Content="Set the datacontext property to 'OneTime: Some Text'" Click="OneTimeSetPropertyValue_Click"/>
                 <Button Content="Get the datacontext property" Click="OneTimeGetPropertyValue_Click"/>
             </StackPanel>
         </GroupBox>
