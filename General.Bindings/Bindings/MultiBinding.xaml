@@ -8,38 +8,139 @@
         <local:IntelligentMultiBindingConverter x:Key="intelligentConverter"/>
     </Window.Resources>
     <Grid>
-        <StackPanel>
-            <TextBox Name="TB1" Text="Text1"/>
-            <TextBox Name="TB2" Text="Text2" />
-            <TextBox Name="TB3" Text="Text3" />
-            <TextBlock>
-                <TextBlock.Text>
-                    <!-- http://stackoverflow.com/questions/9001974/strange-multibinding-stringformat-issue -->
-                    <MultiBinding StringFormat="{}{0}, {1}, {2}">
-                        <Binding ElementName="TB1" Path="Text" />
-                        <Binding ElementName="TB2" Path="Text" />
-                        <Binding ElementName="TB3" Path="Text" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding Converter="{StaticResource intelligentConverter}">
-                        <Binding ElementName="TB1" Path="Text" />
-                        <Binding ElementName="TB2" Path="Text" />
-                        <Binding ElementName="TB3" Path="Text" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBox>
-                <TextBox.Text>
-                    <MultiBinding Converter="{StaticResource myConverter}">
-                        <Binding ElementName="TB1" Path="Text" />
-                        <Binding ElementName="TB2" Path="Text" />
-                        <Binding ElementName="TB3" Path="Text" />
-                    </MultiBinding>
-                </TextBox.Text>
-            </TextBox>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Straightforward usage">
+            <StackPanel>
+                <TextBox Name="TB1" Text="Text1"/>
+                <TextBox Name="TB2" Text="Text2" />
+                <TextBox Name="TB3" Text="Text3" />
+                <TextBlock>
+                    <TextBlock.Text>
+                        <!-- http://stackoverflow.com/questions/9001974/strange-multibinding-stringformat-issue -->
+                        <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                            <Binding ElementName="TB1" Path="Text" />
+                            <Binding ElementName="TB2" Path="Text" />
+                            <Binding ElementName="TB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource intelligentConverter}">
+                            <Binding ElementName="TB1" Path="Text" />
+                            <Binding ElementName="TB2" Path="Text" />
+                            <Binding ElementName="TB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBox>
+                    <TextBox.Text>
+                        <MultiBinding Converter="{StaticResource myConverter}">
+                            <Binding ElementName="TB1" Path="Text" />
+                            <Binding ElementName="TB2" Path="Text" />
+                            <Binding ElementName="TB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Using UpdateSourceTrigger">
+            <StackPanel>
+                <TextBox Name="USTTB1" Text="Text1"/>
+                <TextBox Name="USTTB2" Text="Text2" />
+                <TextBox Name="USTTB3" Text="Text3" />
+                <!-- Following will throw an exception at runtime:
+                    you cannot use the UpdateSourceTriger on an inner binding-->
+                <!--<TextBox>
+                    <TextBox.Text>
+                        <MultiBinding Converter="{StaticResource myConverter}">
+                            <Binding ElementName="USTTB1" Path="Text" />
+                            <Binding ElementName="USTTB2" Path="Text" UpdateSourceTrigger="LostFocus"/>
+                            <Binding ElementName="USTTB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>-->
+                <TextBox>
+                    <TextBox.Text>
+                        <MultiBinding Converter="{StaticResource myConverter}" UpdateSourceTrigger="LostFocus">
+                            <Binding ElementName="USTTB1" Path="Text" />
+                            <Binding ElementName="USTTB2" Path="Text"/>
+                            <Binding ElementName="USTTB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox>
+                    <TextBox.Text>
+                        <MultiBinding Converter="{StaticResource myConverter}" UpdateSourceTrigger="PropertyChanged">
+                            <Binding ElementName="USTTB1" Path="Text" />
+                            <Binding ElementName="USTTB2" Path="Text"/>
+                            <Binding ElementName="USTTB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="Using Mode">
+            <StackPanel>
+                <GroupBox Header="Nothing specified, thus TwoWay">
+                    <StackPanel>
+                        <TextBox Name="MD2WTB1" Text="Text1"/>
+                        <TextBox Name="MD2WTB2" Text="Text2" />
+                        <TextBox Name="MD2WTB3" Text="Text3" />
+                        <!-- Following will throw an exception at runtime:
+                            you cannot use the UpdateSourceTriger on an inner binding-->
+                        <TextBox>
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource myConverter}">
+                                    <Binding ElementName="MD2WTB1" Path="Text" />
+                                    <Binding ElementName="MD2WTB2" Path="Text" />
+                                    <Binding ElementName="MD2WTB3" Path="Text" />
+                                </MultiBinding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="OneWay on inner Binding">
+                    <StackPanel>
+                        <TextBox Name="MD1WITB1" Text="Text1"/>
+                        <TextBox Name="MD1WITB2" Text="Text2" />
+                        <TextBox Name="MD1WITB3" Text="Text3" />
+                        <!-- Following will throw an exception at runtime:
+                            you cannot use the UpdateSourceTriger on an inner binding-->
+                        <TextBox>
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource myConverter}">
+                                    <Binding ElementName="MD1WITB1" Path="Text" />
+                                    <Binding ElementName="MD1WITB2" Path="Text" Mode="OneWay"/>
+                                    <Binding ElementName="MD1WITB3" Path="Text" />
+                                </MultiBinding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="OneWay on MultiBinding">
+                    <StackPanel>
+                        <TextBox Name="MD1WMTB1" Text="Text1"/>
+                        <TextBox Name="MD1WMTB2" Text="Text2" />
+                        <TextBox Name="MD1WMTB3" Text="Text3" />
+                        <!-- Following will throw an exception at runtime:
+                            you cannot use the UpdateSourceTriger on an inner binding-->
+                        <TextBox>
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource myConverter}" Mode="OneWay">
+                                    <Binding ElementName="MD1WMTB1" Path="Text" />
+                                    <Binding ElementName="MD1WMTB2" Path="Text"/>
+                                    <Binding ElementName="MD1WMTB3" Path="Text" />
+                                </MultiBinding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>

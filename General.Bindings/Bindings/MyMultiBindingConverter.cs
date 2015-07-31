@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Bindings
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            Debug.WriteLine("MyMultiBindingConverter.Convert");
             string one = values[0] as string;
             string two = values[1] as string;
             string three = values[2] as string;
@@ -28,6 +30,7 @@ namespace Bindings
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
+            Debug.WriteLine("MyMultiBindingConverter.ConvertBack");
             if (m_allowConvertBack)
             {
                 string valueToConvert = value as string;
