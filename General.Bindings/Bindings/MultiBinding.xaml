@@ -91,8 +91,6 @@
                         <TextBox Name="MD2WTB1" Text="Text1"/>
                         <TextBox Name="MD2WTB2" Text="Text2" />
                         <TextBox Name="MD2WTB3" Text="Text3" />
-                        <!-- Following will throw an exception at runtime:
-                            you cannot use the UpdateSourceTriger on an inner binding-->
                         <TextBox>
                             <TextBox.Text>
                                 <MultiBinding Converter="{StaticResource myConverter}">
@@ -109,8 +107,6 @@
                         <TextBox Name="MD1WITB1" Text="Text1"/>
                         <TextBox Name="MD1WITB2" Text="Text2" />
                         <TextBox Name="MD1WITB3" Text="Text3" />
-                        <!-- Following will throw an exception at runtime:
-                            you cannot use the UpdateSourceTriger on an inner binding-->
                         <TextBox>
                             <TextBox.Text>
                                 <MultiBinding Converter="{StaticResource myConverter}">
@@ -127,8 +123,6 @@
                         <TextBox Name="MD1WMTB1" Text="Text1"/>
                         <TextBox Name="MD1WMTB2" Text="Text2" />
                         <TextBox Name="MD1WMTB3" Text="Text3" />
-                        <!-- Following will throw an exception at runtime:
-                            you cannot use the UpdateSourceTriger on an inner binding-->
                         <TextBox>
                             <TextBox.Text>
                                 <MultiBinding Converter="{StaticResource myConverter}" Mode="OneWay">
