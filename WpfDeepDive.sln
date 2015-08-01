@@ -41,6 +41,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfVisualCustomization.Temp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfVisualCustomization.Templating.UserControlLib", "VisualCustomization.Templating\WpfVisualCustomization.Templating.UserControlLib\WpfVisualCustomization.Templating.UserControlLib.csproj", "{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntoBindings", "IntoBindings", "{44D59BB3-E098-4D5F-8FFA-10110D0FACB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bindings", "General.Bindings\Bindings\Bindings.csproj", "{F8EDC954-BB97-4F0B-804C-22565B6855AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bindings.ItemsControl", "General.Bindings\Bindings.ItemsControl\Bindings.ItemsControl.csproj", "{27C15B45-D788-4FBA-BE0C-12140A66700E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +113,14 @@ Global
 		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8EDC954-BB97-4F0B-804C-22565B6855AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8EDC954-BB97-4F0B-804C-22565B6855AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8EDC954-BB97-4F0B-804C-22565B6855AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8EDC954-BB97-4F0B-804C-22565B6855AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C15B45-D788-4FBA-BE0C-12140A66700E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C15B45-D788-4FBA-BE0C-12140A66700E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C15B45-D788-4FBA-BE0C-12140A66700E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C15B45-D788-4FBA-BE0C-12140A66700E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,5 +141,7 @@ Global
 		{5D9B3959-BAE3-4EFC-9A6C-9010F80B43F7} = {40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}
 		{D542289C-D4E4-4CDD-9D9C-46B14EA64854} = {40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}
 		{B57AC5F1-8D8E-47DB-B3BD-82FBAD4772B6} = {40EF8B2B-B88B-41EE-B4C3-5782D12EDB19}
+		{F8EDC954-BB97-4F0B-804C-22565B6855AD} = {44D59BB3-E098-4D5F-8FFA-10110D0FACB0}
+		{27C15B45-D788-4FBA-BE0C-12140A66700E} = {44D59BB3-E098-4D5F-8FFA-10110D0FACB0}
 	EndGlobalSection
 EndGlobal
