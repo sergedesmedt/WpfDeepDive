@@ -134,6 +134,38 @@
                         </TextBox>
                     </StackPanel>
                 </GroupBox>
+                <GroupBox Header="OneWayToSource on inner Binding">
+                    <StackPanel>
+                        <TextBox Name="MD1SITB1" Text="Text1"/>
+                        <TextBox Name="MD1SITB2" Text="Text2" />
+                        <TextBox Name="MD1SITB3" Text="Text3" />
+                        <TextBox>
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource myConverter}">
+                                    <Binding ElementName="MD1SITB1" Path="Text" />
+                                    <Binding ElementName="MD1SITB2" Path="Text" Mode="OneWayToSource" />
+                                    <Binding ElementName="MD1SITB3" Path="Text" />
+                                </MultiBinding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="OneWayToSource on MultiBinding">
+                    <StackPanel>
+                        <TextBox Name="MD1SMTB1" Text="Text1"/>
+                        <TextBox Name="MD1SMTB2" Text="Text2" />
+                        <TextBox Name="MD1SMTB3" Text="Text3" />
+                        <TextBox>
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource myConverter}" Mode="OneWayToSource">
+                                    <Binding ElementName="MD1SMTB1" Path="Text" />
+                                    <Binding ElementName="MD1SMTB2" Path="Text" />
+                                    <Binding ElementName="MD1SMTB3" Path="Text" />
+                                </MultiBinding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
         </GroupBox>
     </Grid>
