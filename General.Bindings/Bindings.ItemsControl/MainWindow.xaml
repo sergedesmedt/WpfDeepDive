@@ -4,7 +4,8 @@
         xmlns:local="clr-namespace:Bindings.ItemsControl"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <local:ForwardingValueConverter x:Key="myConverter"/>
+        <local:ForwardingValueConverter x:Key="forwardingConverter"/>
+        <local:PrependingValueConverter x:Key="prependingConverter"/>
     </Window.Resources>
     <ScrollViewer>
         <StackPanel>
@@ -12,10 +13,17 @@
                 <StackPanel>
                     <ListBox ItemsSource="{Binding Path=ObservableSource}" />
                     <!-- The converter is applied to the collection and NOT to the items in the collection -->
-                    <ListBox ItemsSource="{Binding Path=ObservableSource, Converter={StaticResource myConverter}}" />
-                    <ListBox ItemsSource="{Binding Path=ObservableSource}"  />
+                    <ListBox ItemsSource="{Binding Path=ObservableSource, Converter={StaticResource forwardingConverter}}" />
+                    <!-- If you want to provide a custom Converter, you'll need to implement an ItemTemplate -->
+                    <ListBox ItemsSource="{Binding Path=ObservableSource}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource prependingConverter}}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <ListBox ItemsSource="{Binding Path=ObservableSource}" ItemStringFormat="Formatted - {0}" />
-                    <!-- you will be notified of changes in theh collection -->
+                    <!-- you will be notified of changes in the collection -->
                     <Button Click="AddToObservableSource">Add to ObservableSource</Button>
                     <Button Click="RemoveFromObservableSource">Remove from ObservableSource</Button>
                     <Button Click="ChangeInObservableSource">Change in ObservableSource</Button>
@@ -35,12 +43,14 @@
                 <StackPanel>
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="MuteProperty" />
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
-                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
+                    <!--<ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />-->
                     <!-- ItemStringFormat does not give you access to properties -->
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" ItemStringFormat="Formatted - {MuteProperty}" />
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" ItemStringFormat="Formatted - {0}" />
                     <!-- you will be notified of changes in the collection -->
                     <Button Click="AddToComplexObservableSource">Add to ComplexObservableSource</Button>
                     <Button Click="RemoveFromComplexObservableSource">Remove from ComplexObservableSource</Button>
+                    <Button Click="ChangeItemInComplexObservableSource">Change item in ComplexObservableSource</Button>
                     <Button Click="ChangeMuteInComplexObservableSource">Change Mute in ComplexObservableSource</Button>
                     <Button Click="ChangeNotifyingInComplexObservableSource">Change Notifying in ComplexObservableSource</Button>
                 </StackPanel>

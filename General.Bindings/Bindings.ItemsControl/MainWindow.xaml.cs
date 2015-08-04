@@ -22,6 +22,7 @@ namespace Bindings.ItemsControl
     public partial class MainWindow : Window
     {
         CollectionDataContext m_dataContext;
+
         public MainWindow()
         {
             m_dataContext = new CollectionDataContext();
@@ -97,6 +98,11 @@ namespace Bindings.ItemsControl
         private void RemoveFromComplexObservableSource(object sender, RoutedEventArgs e)
         {
             m_dataContext.ComplexObservableSource.RemoveAt(0);
+        }
+
+        private void ChangeItemInComplexObservableSource(object sender, RoutedEventArgs e)
+        {
+            m_dataContext.ComplexObservableSource[0] = new ComplexClass() { MuteProperty = "Changed Mute", NotifyingProperty = "Changed Notify" };
         }
 
         private void ChangeMuteInComplexObservableSource(object sender, RoutedEventArgs e)
