@@ -5,6 +5,8 @@
         Title="MultiBinding" Height="300" Width="300">
     <Window.Resources>
         <local:MyMultiBindingConverter x:Key="myConverter"/>
+        <local:MyMultiBindingConverter x:Key="oneWayToSourceOnInnerBinding2Converter" InstanceId="OneWayToSourceOnInnerBinding2"/>
+        <local:MyMultiBindingConverter x:Key="oneWayToSourceOnInnerBinding1Converter" InstanceId="OneWayToSourceOnInnerBinding1"/>
         <local:IntelligentMultiBindingConverter x:Key="intelligentConverter"/>
     </Window.Resources>
     <Grid>
@@ -134,17 +136,33 @@
                         </TextBox>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="OneWayToSource on inner Binding">
+                <GroupBox Header="OneWayToSource on second inner Binding">
                     <StackPanel>
-                        <TextBox Name="MD1SITB1" Text="Text1"/>
-                        <TextBox Name="MD1SITB2" Text="Text2" />
-                        <TextBox Name="MD1SITB3" Text="Text3" />
+                        <TextBox Name="MD1SITB21" Text="MD1SITB21"/>
+                        <TextBox Name="MD1SITB22" Text="MD1SITB22" />
+                        <TextBox Name="MD1SITB23" Text="MD1SITB23" />
                         <TextBox>
                             <TextBox.Text>
-                                <MultiBinding Converter="{StaticResource myConverter}">
-                                    <Binding ElementName="MD1SITB1" Path="Text" />
-                                    <Binding ElementName="MD1SITB2" Path="Text" Mode="OneWayToSource" />
-                                    <Binding ElementName="MD1SITB3" Path="Text" />
+                                <MultiBinding Converter="{StaticResource oneWayToSourceOnInnerBinding2Converter}">
+                                    <Binding ElementName="MD1SITB21" Path="Text" />
+                                    <Binding ElementName="MD1SITB22" Path="Text" Mode="OneWayToSource" />
+                                    <Binding ElementName="MD1SITB23" Path="Text" />
+                                </MultiBinding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="OneWayToSource on first inner Binding">
+                    <StackPanel>
+                        <TextBox Name="MD1SITB11" Text="MD1SITB11"/>
+                        <TextBox Name="MD1SITB12" Text="MD1SITB12" />
+                        <TextBox Name="MD1SITB13" Text="MD1SITB13" />
+                        <TextBox>
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource oneWayToSourceOnInnerBinding1Converter}">
+                                    <Binding ElementName="MD1SITB11" Path="Text" Mode="OneWayToSource" />
+                                    <Binding ElementName="MD1SITB12" Path="Text" />
+                                    <Binding ElementName="MD1SITB13" Path="Text" />
                                 </MultiBinding>
                             </TextBox.Text>
                         </TextBox>
