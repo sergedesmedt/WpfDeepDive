@@ -7,6 +7,7 @@
         <local:MyMultiBindingConverter x:Key="myConverter"/>
         <local:MyMultiBindingConverter x:Key="oneWayToSourceOnInnerBinding2Converter" InstanceId="OneWayToSourceOnInnerBinding2"/>
         <local:MyMultiBindingConverter x:Key="oneWayToSourceOnInnerBinding1Converter" InstanceId="OneWayToSourceOnInnerBinding1"/>
+        <local:MyMultiBindingConverter x:Key="oneWayToSourceOnMultiBindingConverter" InstanceId="OneWayToSourceOnMultiBinding"/>
         <local:IntelligentMultiBindingConverter x:Key="intelligentConverter"/>
     </Window.Resources>
     <Grid>
@@ -20,6 +21,15 @@
                 <TextBox Name="TB1" Text="Text1"/>
                 <TextBox Name="TB2" Text="Text2" />
                 <TextBox Name="TB3" Text="Text3" />
+                <TextBox>
+                    <TextBox.Text>
+                        <MultiBinding Converter="{StaticResource myConverter}">
+                            <Binding ElementName="TB1" Path="Text" />
+                            <Binding ElementName="TB2" Path="Text" />
+                            <Binding ElementName="TB3" Path="Text" />
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
                 <TextBlock>
                     <TextBlock.Text>
                         <!-- http://stackoverflow.com/questions/9001974/strange-multibinding-stringformat-issue -->
@@ -39,15 +49,6 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <TextBox>
-                    <TextBox.Text>
-                        <MultiBinding Converter="{StaticResource myConverter}">
-                            <Binding ElementName="TB1" Path="Text" />
-                            <Binding ElementName="TB2" Path="Text" />
-                            <Binding ElementName="TB3" Path="Text" />
-                        </MultiBinding>
-                    </TextBox.Text>
-                </TextBox>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Row="1" Header="Using UpdateSourceTrigger">
@@ -152,7 +153,7 @@
                         </TextBox>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="OneWayToSource on first inner Binding">
+                <!--<GroupBox Header="OneWayToSource on first inner Binding">
                     <StackPanel>
                         <TextBox Name="MD1SITB11" Text="MD1SITB11"/>
                         <TextBox Name="MD1SITB12" Text="MD1SITB12" />
@@ -167,7 +168,7 @@
                             </TextBox.Text>
                         </TextBox>
                     </StackPanel>
-                </GroupBox>
+                </GroupBox>-->
                 <GroupBox Header="OneWayToSource on MultiBinding">
                     <StackPanel>
                         <TextBox Name="MD1SMTB1" Text="Text1"/>
@@ -175,7 +176,7 @@
                         <TextBox Name="MD1SMTB3" Text="Text3" />
                         <TextBox>
                             <TextBox.Text>
-                                <MultiBinding Converter="{StaticResource myConverter}" Mode="OneWayToSource">
+                                <MultiBinding Converter="{StaticResource oneWayToSourceOnMultiBindingConverter}" Mode="OneWayToSource">
                                     <Binding ElementName="MD1SMTB1" Path="Text" />
                                     <Binding ElementName="MD1SMTB2" Path="Text" />
                                     <Binding ElementName="MD1SMTB3" Path="Text" />

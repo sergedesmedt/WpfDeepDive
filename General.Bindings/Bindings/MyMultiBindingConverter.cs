@@ -28,11 +28,9 @@ namespace Bindings
                 + "[2:" + (string.IsNullOrEmpty(two) ? "NULL" : two) + "]"
                 + "[3:" + (string.IsNullOrEmpty(three) ? "NULL" : three) + "]"
             );
-            if (!string.IsNullOrEmpty(one) && !string.IsNullOrEmpty(two) && !string.IsNullOrEmpty(three))
-            {
-                return one + "_" + two + "_" + three;
-            }
-            return null;
+                return (string.IsNullOrEmpty(one)?"NULL":one)
+                    + "_" + (string.IsNullOrEmpty(two) ? "NULL" : two)
+                    + "_" + (string.IsNullOrEmpty(three) ? "NULL" : three);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -44,7 +42,8 @@ namespace Bindings
             );
             if (m_allowConvertBack)
             {
-                object[] result = valueToConvert.Split(stringSeparators, StringSplitOptions.None);
+                object[] result = valueToConvert.Split(stringSeparators, StringSplitOptions.None).Select(x => (x=="NULL"?null:x)).ToArray();
+                Debug.WriteLine("MyMultiBindingConverter.ConvertBack[" + (string.IsNullOrEmpty(InstanceId) ? "Global" : InstanceId) + "]Object[" + result.Count() + "]");
                 return result;
             }
             else
