@@ -34,7 +34,8 @@
                 <Button Content="Set the datacontext property to 'OneWayToSource: Some Text'" Click="OneWayToSourceSetPropertyValue_Click"/>
                 <Button Content="Get the datacontext property" Click="OneWayToSourceGetPropertyValue_Click"/>
                 <!--<TextBox TextWrapping="Wrap" Text="This doesn't work" ActualWidth="{Binding Mode=OneWayToSource, Path=OneWayToSourceBindingProperty}"/>-->
-                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWayToSource, Path=OneWayToSourceGetIsCalledProperty}"/>
+                <!--<TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWayToSource, Path=OneWayToSourceGetIsCalledProperty}"/>
+                <TextBox TextWrapping="Wrap" Text="{Binding Mode=OneWayToSource, Path=OneWayToSourceGetIsCalledProperty, UpdateSourceTrigger=PropertyChanged}"/>-->
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Row="3" Header="OneTime binding" >

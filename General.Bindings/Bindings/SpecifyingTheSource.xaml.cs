@@ -28,5 +28,11 @@ namespace Bindings
 
             this.DataContext = dataContext;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CrossingWindowBoundaries window = new CrossingWindowBoundaries();
+            window.ShowDialog();
+        }
     }
 }

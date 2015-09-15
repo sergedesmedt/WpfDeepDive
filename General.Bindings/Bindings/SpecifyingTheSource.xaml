@@ -143,7 +143,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>-->
-        <GroupBox Grid.Row="7">
+        <GroupBox Grid.Row="7" Header="Binding the templated parent through the AncestorType">
 			<StackPanel>
 				<Button Background="Blue">
 					<Button.Template>
@@ -157,7 +157,7 @@
 						</ControlTemplate>
 					</Button.Template>
 				</Button>
-				<!-- Does the above also work when the templaeteis defined inside a resource ?-->
+				<!-- Does the above also work when the template is defined inside a resource ?-->
                 <Button Background="Green" Template="{StaticResource MyButtonTemplate}">
                 </Button>
             </StackPanel>
@@ -218,7 +218,7 @@
                         <TextBlock Text="{Binding ElementName=source31, Path=Header}" />
                         <TextBlock Text="{Binding ElementName=source4, Path=Header}" />
                         <!-- you cannot cross window boundaries -->
-                        <Button Background="{Binding ElementName=BtnInOtherWindow, Path=Background}" >Getting at a button in another window</Button>
+                        <Button Background="{Binding ElementName=BtnInOtherWindow, Path=Background}" Click="Button_Click" >Getting at a button in another window</Button>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox x:Name="source4" Header="Declared after the referencing">

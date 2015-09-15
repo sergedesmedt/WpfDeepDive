@@ -55,12 +55,26 @@
                     <Button Click="ChangeNotifyingInComplexObservableSource">Change Notifying in ComplexObservableSource</Button>
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="Simple Observable Collection: What is Synchronization">
+                <StackPanel>
+                    <!-- we are not simply binding to the ObservableCollection but instead
+                        we are binding to a view on the ObservableCollection -->
+                    <Label Content="Listbox with No Sync" />
+                    <ListBox Name="ListSyncNoSyncing" ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
+                    <Button Click="GetSelectedItemNoSync">Show Selected Item on Not Synced</Button>
+                    <Button Click="GetCurrentItemNoSync">Show Current Item on Not Synced</Button>
+                    <Label Content="Listbox with No Sync" />
+                    <ListBox Name="ListSyncWtSyncing" ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                    <Button Click="GetSelectedItemWtSync">Show Selected Item with Syncing</Button>
+                    <Button Click="GetCurrentItemWtSync">Show Current Item with Syncing</Button>
+                    <ListBox Name="ListSyncWtSyncing2" ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="Simple Observable Collection: Synchronization">
                 <StackPanel>
                     <!-- we are not simply binding to the ObservableCollection but instead
                         we are binding to a view on the ObservableCollection -->
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
-                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
                 </StackPanel>
             </GroupBox>
@@ -69,7 +83,6 @@
                     <!-- The above is not caused by the use of ObservableCollection
                         it also works with a simple List -->
                     <ListBox ItemsSource="{Binding Path=ComplexListSource}" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
-                    <ListBox ItemsSource="{Binding Path=ComplexListSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
                     <ListBox ItemsSource="{Binding Path=ComplexListSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
                 </StackPanel>
             </GroupBox>

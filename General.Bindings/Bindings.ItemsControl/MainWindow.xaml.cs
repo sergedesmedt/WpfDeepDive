@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,40 @@ namespace Bindings.ItemsControl
         private void ChangeNotifyingInComplexObservableSource(object sender, RoutedEventArgs e)
         {
             m_dataContext.ComplexObservableSource[0].NotifyingProperty = "Changed notifying value";
+        }
+
+        private void GetSelectedItemNoSync(object sender, RoutedEventArgs e)
+        {
+            if (ListSyncNoSyncing.SelectedItem == null)
+                MessageBox.Show("There is no current Item");
+            else
+                MessageBox.Show((ListSyncNoSyncing.SelectedItem as ComplexClass).NotifyingProperty);
+        }
+
+        private void GetCurrentItemNoSync(object sender, RoutedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(m_dataContext.ComplexObservableSource);
+            if(view.CurrentItem == null)
+                MessageBox.Show("There is no current Item");
+            else
+                MessageBox.Show((view.CurrentItem as ComplexClass).NotifyingProperty);
+        }
+
+        private void GetSelectedItemWtSync(object sender, RoutedEventArgs e)
+        {
+            if (ListSyncWtSyncing.SelectedItem == null)
+                MessageBox.Show("There is no current Item");
+            else
+                MessageBox.Show((ListSyncWtSyncing.SelectedItem as ComplexClass).NotifyingProperty);
+        }
+
+        private void GetCurrentItemWtSync(object sender, RoutedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(m_dataContext.ComplexObservableSource);
+            if (view.CurrentItem == null)
+                MessageBox.Show("There is no current Item");
+            else
+                MessageBox.Show((view.CurrentItem as ComplexClass).NotifyingProperty);
         }
 
         private void SetSelectedInObservable(object sender, RoutedEventArgs e)
