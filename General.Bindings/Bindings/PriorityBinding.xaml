@@ -17,7 +17,7 @@
         <StackPanel Grid.Row="0">
             <TextBox Name="TB11" Text="Text1" />
             <TextBox Name="TB12" Text="Text2" />
-            <TextBox>
+            <TextBox Background="LightGreen">
                 <TextBox.Text>
                     <PriorityBinding>
                         <Binding ElementName="TB11" Path="Text" />
@@ -29,7 +29,7 @@
         <StackPanel Grid.Row="1">
             <TextBox Name="TB21" Text="Text1" />
             <TextBox Name="TB22" Text="Text2" />
-            <TextBox>
+            <TextBox Background="LightGreen">
                 <TextBox.Text>
                     <PriorityBinding>
                         <Binding ElementName="TB21" Path="Text" Converter="{StaticResource myConverter}" />
@@ -41,7 +41,7 @@
         <StackPanel Grid.Row="2">
             <TextBox Name="TB31" Text="Text1" />
             <TextBox Name="TB32" Text="Text2" />
-            <TextBox>
+            <TextBox Background="LightGreen">
                 <TextBox.Text>
                     <PriorityBinding>
                         <!-- There is no property with the name PropertyWhichDoesNotExist -->
@@ -53,8 +53,8 @@
         </StackPanel>
         <StackPanel Grid.Row="3">
             <TextBox Name="TB41" Text="Text1" HorizontalAlignment="Right" Background="Blue" />
-            <TextBox Name="TB42" Text="Text2" HorizontalAlignment="Left" Background="Green" />
-            <TextBox Text="Take the alignment">
+            <TextBox Name="TB42" Text="Text2" HorizontalAlignment="Left" Background="Yellow" />
+            <TextBox Background="LightGreen" Text="Take the alignment">
                 <TextBox.HorizontalAlignment>
                     <PriorityBinding>
                         <!-- A Brush is not a valid value for the HorizontalAlignment -->
@@ -63,7 +63,7 @@
                     </PriorityBinding>
                 </TextBox.HorizontalAlignment>
             </TextBox>
-            <TextBox Text="Dynamic">
+            <TextBox Background="LightGreen" Text="Dynamic">
                 <TextBox.HorizontalAlignment>
                     <PriorityBinding>
                         <Binding Path="ObjectProperty" />

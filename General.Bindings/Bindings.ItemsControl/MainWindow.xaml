@@ -12,6 +12,10 @@
             <GroupBox Header="Simple Observable Collection">
                 <StackPanel>
                     <ListBox ItemsSource="{Binding Path=ObservableSource}" />
+                    <!-- you will be notified of changes in the collection -->
+                    <Button Click="AddToObservableSource">Add to ObservableSource</Button>
+                    <Button Click="RemoveFromObservableSource">Remove from ObservableSource</Button>
+                    <Button Click="ChangeInObservableSource">Change in ObservableSource</Button>
                     <!-- The converter is applied to the collection and NOT to the items in the collection -->
                     <ListBox ItemsSource="{Binding Path=ObservableSource, Converter={StaticResource forwardingConverter}}" />
                     <!-- If you want to provide a custom Converter, you'll need to implement an ItemTemplate -->
@@ -23,10 +27,6 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <ListBox ItemsSource="{Binding Path=ObservableSource}" ItemStringFormat="Formatted - {0}" />
-                    <!-- you will be notified of changes in the collection -->
-                    <Button Click="AddToObservableSource">Add to ObservableSource</Button>
-                    <Button Click="RemoveFromObservableSource">Remove from ObservableSource</Button>
-                    <Button Click="ChangeInObservableSource">Change in ObservableSource</Button>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Simple List Collection">
@@ -44,8 +44,6 @@
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="MuteProperty" />
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
                     <!--<ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />-->
-                    <!-- ItemStringFormat does not give you access to properties -->
-                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" ItemStringFormat="Formatted - {MuteProperty}" />
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" ItemStringFormat="Formatted - {0}" />
                     <!-- you will be notified of changes in the collection -->
                     <Button Click="AddToComplexObservableSource">Add to ComplexObservableSource</Button>
@@ -53,6 +51,8 @@
                     <Button Click="ChangeItemInComplexObservableSource">Change item in ComplexObservableSource</Button>
                     <Button Click="ChangeMuteInComplexObservableSource">Change Mute in ComplexObservableSource</Button>
                     <Button Click="ChangeNotifyingInComplexObservableSource">Change Notifying in ComplexObservableSource</Button>
+                    <!-- ItemStringFormat does not give you access to properties -->
+                    <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" ItemStringFormat="Formatted - {MuteProperty}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Simple Observable Collection: What is Synchronization">
@@ -63,7 +63,7 @@
                     <ListBox Name="ListSyncNoSyncing" ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" />
                     <Button Click="GetSelectedItemNoSync">Show Selected Item on Not Synced</Button>
                     <Button Click="GetCurrentItemNoSync">Show Current Item on Not Synced</Button>
-                    <Label Content="Listbox with No Sync" />
+                    <Label Content="Listbox with Sync" />
                     <ListBox Name="ListSyncWtSyncing" ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
                     <Button Click="GetSelectedItemWtSync">Show Selected Item with Syncing</Button>
                     <Button Click="GetCurrentItemWtSync">Show Current Item with Syncing</Button>
@@ -91,7 +91,7 @@
                     <!-- The synchronization is maintained -->
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" SelectedItem="{Binding Path=SelectedInObservable}" DisplayMemberPath="MuteProperty" IsSynchronizedWithCurrentItem="True" />
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
-                    <Button Content="Set Selected to second item in collection" Click="SetSelectedInObservable" />
+                    <Button Content="Set Selected to third item in collection" Click="SetSelectedInObservable" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Simple Observable Collection: Synchronization and SelectedValue">
@@ -101,7 +101,7 @@
                     <ListBox ItemsSource="{Binding Path=ComplexObservableSource}" DisplayMemberPath="NotifyingProperty" IsSynchronizedWithCurrentItem="True" />
                     <!-- we are only setting the value of the porperty, but the selection is updated to the complete object 
                         and as above, the synchronization is maintained-->
-                    <Button Content="Set Selected to a property of second item in collection" Click="SetSelectedValueInObservable" />
+                    <Button Content="Set Selected to a property of third item in collection" Click="SetSelectedValueInObservable" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>
