@@ -65,6 +65,10 @@
       <DependentUpon>ControlBasedWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="DefaultTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ItemsControlBasedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomData.cs" />
+    <Compile Include="DefaultTemplates.xaml.cs">
+      <DependentUpon>DefaultTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ItemsControlBasedWindow.xaml.cs">
       <DependentUpon>ItemsControlBasedWindow.xaml</DependentUpon>
     </Compile>

@@ -18,7 +18,7 @@
             </Border>
         </ControlTemplate>
         <ControlTemplate x:Key="templateWithRelativeBinding" TargetType="{x:Type Button}">
-            <!-- Don't specify the class type in de path: ollowing will not work
+            <!-- Don't specify the class type in de path: following will not work
                 {Binding RelativeSource={RelativeSource TemplatedParent}, Path=Control.BorderBrush}
             -->
             <Border BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" BorderThickness="5" >
@@ -31,6 +31,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
