@@ -7,9 +7,14 @@
         <ControlTemplate x:Key="templateWithNoContent" TargetType="{x:Type Button}">
             <Border Background="Red" />
         </ControlTemplate>
-        <ControlTemplate x:Key="templateWithContent" TargetType="{x:Type Button}">
+        <ControlTemplate x:Key="templateWithContentAndTargetType" TargetType="{x:Type Button}">
             <Border BorderBrush="Green" BorderThickness="5" >
                 <ContentPresenter />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="templateWithContentAndExpliciteBinding" >
+            <Border BorderBrush="Green" BorderThickness="5" >
+                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
             </Border>
         </ControlTemplate>
         <ControlTemplate x:Key="templateWithBinding" TargetType="{x:Type Button}">
@@ -38,6 +43,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="A default button" />
@@ -48,12 +54,13 @@
         </Button>
         <!-- We need a ContentPresenter in our template to be able to display something -->
         <Button Grid.Row="2" Content="A (wrongly) templated button" Template="{StaticResource ResourceKey=templateWithNoContent}" />
-        <Button Grid.Row="3" Content="A (rightly) templated button" Template="{StaticResource ResourceKey=templateWithContent}" />
-        <Button Grid.Row="4" Content="A templated button with binding No Value" Template="{StaticResource ResourceKey=templateWithBinding}" />
-        <Button Grid.Row="5" Content="A templated button with binding and Value" BorderBrush="Brown" Template="{StaticResource ResourceKey=templateWithBinding}" />
-        <Button Grid.Row="6" Content="A templated button with relative binding and Value" BorderBrush="Red" Template="{StaticResource ResourceKey=templateWithRelativeBinding}" />
-        <CustomControlLib:CustomControl Grid.Row="7" Text="Editbox with button" />
-        <CustomControlLib:CustomContentControl Grid.Row="8" Content="Editbox with button" />
-        <CustomControlLib:CustomControlWithEventBinding Grid.Row="9" Text="Editbox with button" />
+        <Button Grid.Row="3" Content="A (rightly) templated button with TargetType" Template="{StaticResource ResourceKey=templateWithContentAndTargetType}" />
+        <Button Grid.Row="4" Content="A (rightly) templated button with Explicite binding" Template="{StaticResource ResourceKey=templateWithContentAndExpliciteBinding}" />
+        <Button Grid.Row="5" Content="A templated button with binding No Value" Template="{StaticResource ResourceKey=templateWithBinding}" />
+        <Button Grid.Row="6" Content="A templated button with binding and Value" BorderBrush="Brown" Template="{StaticResource ResourceKey=templateWithBinding}" />
+        <Button Grid.Row="7" Content="A templated button with relative binding and Value" BorderBrush="Red" Template="{StaticResource ResourceKey=templateWithRelativeBinding}" />
+        <CustomControlLib:CustomControl Grid.Row="8" Text="Editbox with button" />
+        <CustomControlLib:CustomContentControl Grid.Row="9" Content="Editbox with button" />
+        <CustomControlLib:CustomControlWithEventBinding Grid.Row="10" Text="Editbox with button" />
     </Grid>
 </Window>
