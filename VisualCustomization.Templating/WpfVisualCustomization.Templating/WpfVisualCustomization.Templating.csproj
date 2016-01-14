@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -65,6 +66,10 @@
       <DependentUpon>ControlBasedWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ControlPartsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DefaultTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +84,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlPartsWindow.xaml.cs">
+      <DependentUpon>ControlPartsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomData.cs" />
     <Compile Include="DefaultTemplates.xaml.cs">
       <DependentUpon>DefaultTemplates.xaml</DependentUpon>

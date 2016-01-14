@@ -30,6 +30,12 @@ namespace WpfVisualCustomization.Templating
             window.Show();
         }
 
+        private void ControlParts_Click(object sender, RoutedEventArgs e)
+        {
+            ControlPartsWindow window = new ControlPartsWindow();
+            window.Show();
+        }
+
         private void ItemsControlBasedTemplating_Click(object sender, RoutedEventArgs e)
         {
             ItemsControlBasedWindow window = new ItemsControlBasedWindow();

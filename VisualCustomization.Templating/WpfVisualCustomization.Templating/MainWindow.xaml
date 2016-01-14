@@ -5,6 +5,7 @@
     <Grid>
         <StackPanel>
             <Button Content="Control Based Templating" Click="ControlBasedTemplating_Click" />
+            <Button Content="Control Parts" Click="ControlParts_Click" />
             <Button Content="ItemsControl Based Templating" Click="ItemsControlBasedTemplating_Click" />
             <Button Content="Some Default Templates" Click="SomeDefaultTemplates_Click" />
         </StackPanel>
