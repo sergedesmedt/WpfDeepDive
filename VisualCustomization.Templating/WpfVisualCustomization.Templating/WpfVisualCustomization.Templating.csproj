@@ -70,6 +70,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DataTemplatesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DefaultTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,7 +91,11 @@
     <Compile Include="ControlPartsWindow.xaml.cs">
       <DependentUpon>ControlPartsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomContext.cs" />
     <Compile Include="CustomData.cs" />
+    <Compile Include="DataTemplatesWindow.xaml.cs">
+      <DependentUpon>DataTemplatesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DefaultTemplates.xaml.cs">
       <DependentUpon>DefaultTemplates.xaml</DependentUpon>
     </Compile>

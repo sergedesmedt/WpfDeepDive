@@ -36,6 +36,12 @@ namespace WpfVisualCustomization.Templating
             window.Show();
         }
 
+        private void DataTemplates_Click(object sender, RoutedEventArgs e)
+        {
+            DataTemplatesWindow window = new DataTemplatesWindow();
+            window.Show();
+        }
+
         private void ItemsControlBasedTemplating_Click(object sender, RoutedEventArgs e)
         {
             ItemsControlBasedWindow window = new ItemsControlBasedWindow();
