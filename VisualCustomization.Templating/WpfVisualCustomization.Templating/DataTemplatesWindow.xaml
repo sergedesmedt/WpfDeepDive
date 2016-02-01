@@ -13,10 +13,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <Button Content="{StaticResource theContent}" />
+            <Label Content="{StaticResource theContent}" />
         </StackPanel>
         <StackPanel Grid.Row="1">
             <StackPanel.Resources>
@@ -49,6 +50,25 @@
             <Label Content="{StaticResource theContent}" />
             <Label DataContext="{StaticResource theDataContext}" Background="{Binding DataContextBrush}" Content="{StaticResource theContent}" />
             <Label DataContext="{StaticResource theDataContextWithContent}" Background="{Binding DataContextBrush}" Content="{Binding TheData}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <StackPanel.Resources>
+                <DataTemplate DataType="{x:Type local:CustomData}" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="0" Grid.Row="0" Background="Blue" BorderBrush="Red">
+                            <Label Background="{Binding DataContext.DataContextBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=Control}}" Content="DataMember1" />
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </StackPanel.Resources>
+            <Label DataContext="{StaticResource theDataContext}" Background="{Binding DataContextBrush}" Content="{StaticResource theContent}" />
         </StackPanel>
     </Grid>
 </Window>
