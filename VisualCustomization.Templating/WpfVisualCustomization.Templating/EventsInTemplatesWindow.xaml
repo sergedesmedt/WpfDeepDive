@@ -1,0 +1,49 @@
+﻿<Window x:Class="WpfVisualCustomization.Templating.EventsInTemplatesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfVisualCustomization.Templating"
+        Title="EventsInTemplatesWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/EventsInResourceDictionary.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+                <local:CustomData x:Key="theContent" DataMember1="1" DataMember2="DM2_CONTENT" XCoord="11" YCoord="12" />
+                <local:OtherData x:Key="theOtherContent" />
+                <local:CustomContext x:Key="theDataContext" DataContextBrush="Yellow" />
+                <local:CustomData x:Key="theContentForContext" DataMember1="2" DataMember2="DM2_CONTEXT" XCoord="21" YCoord="22" />
+                <local:CustomContext x:Key="theDataContextWithContent" DataContextBrush="Orange" TheData="{StaticResource theContentForContext}" />
+                <ControlTemplate x:Key="someTemplateWithEventHandler" TargetType="{x:Type Label}">
+                    <Border BorderBrush="Red" BorderThickness="2">
+                        <StackPanel Orientation="Vertical">
+                            <ContentPresenter />
+                            <Button Content="Text on the button" Click="ButtonFromResourceSection_Click" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Template="{StaticResource someTemplateWithEventHandler}">Text for first label</Label>
+        <Label Grid.Row="1" Template="{StaticResource someTemplateWithEventHandler}">Text for second label</Label>
+        <Label Grid.Row="2" Template="{StaticResource someTemplateInResourceWithEventHandler}">Text for third label</Label>
+        <Label Grid.Row="3" Content="Text for fourth label">
+            <Label.Template>
+                <ControlTemplate TargetType="{x:Type Label}">
+                    <Border BorderBrush="Blue" BorderThickness="2" >
+                        <StackPanel Orientation="Vertical">
+                            <ContentPresenter />
+                            <Button Content="Text on the button" Click="ButtonInsideLocalTemplate_Click" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Label.Template>
+        </Label>
+    </Grid>
+</Window>

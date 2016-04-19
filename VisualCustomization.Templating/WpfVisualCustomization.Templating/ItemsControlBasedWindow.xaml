@@ -1,13 +1,28 @@
 ﻿<Window x:Class="WpfVisualCustomization.Templating.ItemsControlBasedWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfVisualCustomization.Templating"
         Title="ItemsControlBasedWindow" Height="300" Width="300">
     <Window.Resources>
         <ControlTemplate x:Key="templateWithNoContent" TargetType="{x:Type ItemsControl}">
-            <Border Background="Red" />
+            <Border Background="Red" Margin="10" Padding="10" />
         </ControlTemplate>
         <ControlTemplate x:Key="templateWithItemsPresenter" TargetType="{x:Type ItemsControl}">
-            <ItemsPresenter x:Name="ItemsPresenter" ></ItemsPresenter>
+            <StackPanel>
+                <TextBlock Text="Below this is the ItemsPresenter" />
+                <ItemsPresenter x:Name="ItemsPresenter" ></ItemsPresenter>
+            </StackPanel>
+        </ControlTemplate>
+        <ControlTemplate x:Key="templateWithFixedPanel" TargetType="{x:Type ItemsControl}">
+            <StackPanel>
+                <TextBlock Text="Look mama: without an ItemsPresenter!" />
+                <StackPanel IsItemsHost="True" ></StackPanel>
+            </StackPanel>
+        </ControlTemplate>
+        <ControlTemplate x:Key="templateWithFixedPanelNoHost" TargetType="{x:Type ItemsControl}">
+            <Border Background="Red" Margin="10" Padding="10">
+                <StackPanel Orientation="Horizontal" ></StackPanel>
+            </Border>
         </ControlTemplate>
     </Window.Resources>
     <Grid>
@@ -16,37 +31,113 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ItemsControl Grid.Row="0" x:Name="StandardItemsControl"/>
         <ListView Grid.Row="1" x:Name="StandardListView"/>
-        <ListView Grid.Row="2" x:Name="ItemTemplatedListView">
+        <ListView Grid.Row="2" x:Name="ItemTemplatedListView" Background="Yellow" Foreground="Blue">
+            <!--this results in the same thing is setting the style inside the ItemContainerStyle-->
+            <!--<ListView.Resources>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="Brown" />
+                </Style>
+            </ListView.Resources>-->
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="Brown" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding DataMember1}"/>
-                        <TextBlock Text="{Binding DataMember2}" />
-                    </StackPanel>
+                    <Border Background="Fuchsia" Padding="5">
+                        <StackPanel>
+                            <TextBlock Background="Red" Text="{Binding DataMember1}"/>
+                            <TextBlock Background="Red" Text="{Binding DataMember2}" />
+                            <!-- ItemTemplate must be of type DataTemplate and this doesn't support TemplateBindings -->
+                            <!--<TextBlock Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />-->
+                            <!--<TextBlock Background="{TemplateBinding ListViewItem.Background}" />-->
+                            <TextBlock Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=Background}" />
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ItemsControl Grid.Row="3" Template="{StaticResource ResourceKey=templateWithItemsPresenter}" x:Name="TemplatedItemsControl1">
+        <Border Grid.Row="3">
+            <Border.Resources>
+                <DataTemplate DataType="{x:Type local:CustomData}">
+                    <StackPanel>
+                        <TextBlock Background="Green" Text="From DataTemplate"/>
+                        <TextBlock Background="Green" Text="{Binding DataMember2}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Border.Resources>
+            <ListView x:Name="ResourceTemplatedListView">
+            </ListView>
+        </Border>
+        <ItemsControl Grid.Row="4" Template="{StaticResource ResourceKey=templateWithNoContent}" x:Name="TemplatedItemsControl0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding DataMember1}"/>
-                        <TextBlock Text="{Binding DataMember2}" />
+                        <TextBlock Background="Yellow" Text="With NoContent"/>
+                        <TextBlock Background="Yellow" Text="{Binding DataMember2}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl Grid.Row="5" Template="{StaticResource ResourceKey=templateWithItemsPresenter}" x:Name="TemplatedItemsControl1a">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Background="Fuchsia" Text="With ItemsPresenter"/>
+                        <TextBlock Background="Fuchsia" Text="{Binding DataMember2}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <!--<StackPanel Orientation="Horizontal" IsItemsHost="True"/>-->
                     <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <ItemsControl Grid.Row="4" Template="{StaticResource ResourceKey=templateWithItemsPresenter}" x:Name="TemplatedItemsControl2">
+        <ItemsControl Grid.Row="6" Template="{StaticResource ResourceKey=templateWithFixedPanel}" x:Name="TemplatedItemsControl1b">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Background="Fuchsia" Text="With IsItemsHost"/>
+                        <TextBlock Background="Fuchsia" Text="{Binding DataMember2}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <!-- This will do absolutely nothing! We're not using an ItemsPresenter but using a StackPanel with an IsItemsHost property
+                In practice you are saying to WPF: always use my panel and neglect the ItemsPanel property -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Following will not show anything: WPF doesnts in which panel to show the Items -->
+        <ItemsControl Grid.Row="7" Template="{StaticResource ResourceKey=templateWithFixedPanelNoHost}" x:Name="TemplatedItemsControl1c">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Background="Fuchsia" Text="Without IsItemsHost"/>
+                        <TextBlock Background="Fuchsia" Text="{Binding DataMember2}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <ItemsControl Grid.Row="8" x:Name="TemplatedItemsControl2">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -54,12 +145,11 @@
                                 you can only bind the canvas properties on direct children 
                                 and there is an ItemContainer inbetween this ItemTemplate and the ItemsPanel-->
                         <!--<TextBlock Canvas.Left="{Binding XCoord}" Canvas.Top="{Binding YCoord}" Text="{Binding DataMember2}" />-->
+                        <TextBlock Text="In an ItemsControl" />
                         <TextBlock Text="{Binding DataMember2}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-            <!-- http://stackoverflow.com/questions/1265364/setting-canvas-properties-in-an-itemscontrol-datatemplate -->
-            <!-- you can only bind the canvas properties on direct children -->
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
                     <Setter Property="Canvas.Left" Value="{Binding Path=XCoord}" />
@@ -68,7 +158,6 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <!--<StackPanel Orientation="Horizontal" IsItemsHost="True"/>-->
                     <Canvas />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>

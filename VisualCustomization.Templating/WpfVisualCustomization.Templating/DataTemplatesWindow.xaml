@@ -2,9 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WpfVisualCustomization.Templating"
-        Title="DataTemplatesWindow" Height="600" Width="300">
+        Title="DataTemplatesWindow" Height="900" Width="300">
     <Window.Resources>
         <local:CustomData x:Key="theContent" DataMember1="1" DataMember2="DM2_CONTENT" XCoord="11" YCoord="12" />
+        <local:OtherData x:Key="theOtherContent" />
         <local:CustomContext x:Key="theDataContext" DataContextBrush="Yellow" />
         <local:CustomData x:Key="theContentForContext" DataMember1="2" DataMember2="DM2_CONTEXT" XCoord="21" YCoord="22" />
         <local:CustomContext x:Key="theDataContextWithContent" DataContextBrush="Orange" TheData="{StaticResource theContentForContext}" />
@@ -15,10 +16,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
+            <!-- Specifying some content but no DataTemplate: the default behaviour is to just show the ToString() value of the content Type -->
             <Label Content="{StaticResource theContent}" />
+            <Label Content="{StaticResource theOtherContent}" />
         </StackPanel>
         <StackPanel Grid.Row="1">
             <StackPanel.Resources>
@@ -35,6 +39,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Border Grid.Column="0" Grid.Row="0" Background="Blue">
+                            <!-- This property only exists on the type used as a DataContext and not on the type used for the Content -->
                             <Label Background="{Binding DataContextBrush}" Content="RS.Type.DataMember1" />
                         </Border>
                         <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DataMember1}" />
@@ -47,7 +52,9 @@
                     </Grid>
                 </DataTemplate>
             </StackPanel.Resources>
+            <!-- Using the DataTemplate specified in the resource section (only because there we used the TargetType property)-->
             <Button Content="{StaticResource theContent}" />
+            <!-- Specifying a DataTemplate just for this Label -->
             <Label Content="{StaticResource theContent}" >
                 <Label.ContentTemplate>
                     <DataTemplate>
@@ -74,10 +81,14 @@
                     </DataTemplate>
                 </Label.ContentTemplate>
             </Label>
+            <!-- Properties of the bound DataContext are NOT used in the DataTemplate -->
             <Label DataContext="{StaticResource theDataContext}" Background="{Binding DataContextBrush}" Content="{StaticResource theContent}" />
+            <!-- Binding the Content still happens on the DataContext object -->
             <Label DataContext="{StaticResource theDataContextWithContent}" Background="{Binding DataContextBrush}" Content="{Binding TheData}" />
         </StackPanel>
         <StackPanel Grid.Row="2">
+            <!-- Applying templates
+                As with all resources, you can specify the Key and then reference in as a StaticResource -->
             <StackPanel.Resources>
                 <DataTemplate x:Key="KeyedDataTemplate" >
                     <Grid>
@@ -104,10 +115,13 @@
                     </Grid>
                 </DataTemplate>
             </StackPanel.Resources>
+            <!-- DataTemplates in the resource section with a key but no TargetType are not automatically applied -->
             <Label Content="{StaticResource theContent}" />
+            <!-- They can however be applied to specific controls through the use of the ContentTemplate property -->
             <Label Content="{StaticResource theContent}" ContentTemplate="{StaticResource KeyedDataTemplate}" />
         </StackPanel>
         <StackPanel Grid.Row="3">
+            <!-- How to get at properties of the control from the DataTemplate ? -->
             <StackPanel.Resources>
                 <DataTemplate DataType="{x:Type local:CustomData}" >
                     <Grid>
@@ -116,15 +130,109 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
+                        <!-- Using the FindAncestor source -->
                         <Border Grid.Column="0" Grid.Row="0" Background="Blue" BorderBrush="Red">
                             <Label Background="{Binding DataContext.DataContextBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=Control}}" Content="DataMember1" />
+                        </Border>
+                        <!-- TemplateBinding does not work inside a DataTemplate -->
+                        <Border Grid.Column="0" Grid.Row="1" Background="Blue" BorderBrush="Red">
+                            <Label Background="{TemplateBinding DataContext}" Content="DataMember2" />
+                        </Border>
+                        <!-- Using the FindAncestor source: be carefull with the type of control as you might not end up at the desired templated control 
+                            In the below example we are binding to the Border Background -->
+                        <Border Grid.Column="0" Grid.Row="2" Background="Blue" BorderBrush="Red">
+                            <Label Foreground="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=FrameworkElement}}" Content="DataMember1" />
                         </Border>
                     </Grid>
                 </DataTemplate>
             </StackPanel.Resources>
             <Label DataContext="{StaticResource theDataContext}" Background="{Binding DataContextBrush}" Content="{StaticResource theContent}" />
+        </StackPanel>
+        <StackPanel Grid.Row="4">
+            <StackPanel.Resources>
+                <local:CustomData x:Key="XBiggerThenY" DataMember1="1" DataMember2="DM2_CONTENT" XCoord="15" YCoord="12" />
+                <local:CustomData x:Key="YBiggerThenX" DataMember1="1" DataMember2="DM2_CONTENT" XCoord="10" YCoord="12" />
+                <local:MyDataTemplateSelector x:Key="myDataTemplateSelector"/>
+                <DataTemplate x:Key="XCoordIsBiggerThenOrEqualToYCoord" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding XCoord}" />
+                        <TextBlock Text=" is greater than or equal to " />
+                        <TextBlock Text="{Binding YCoord}" />
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate x:Key="XCoordIsSmallerThenYCoord" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding XCoord}" />
+                        <TextBlock Text=" is smaller than " />
+                        <TextBlock Text="{Binding YCoord}" />
+                    </StackPanel>
+                </DataTemplate>
+                <ControlTemplate x:Key="XCoordIsBiggerThenOrEqualToYCoordCtrl" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding XCoord}" />
+                        <TextBlock Text=" is greater than or equal to " />
+                        <TextBlock Text="{Binding YCoord}" />
+                    </StackPanel>
+                </ControlTemplate>
+                <ControlTemplate x:Key="XCoordIsSmallerThenYCoordCtrl" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding XCoord}" />
+                        <TextBlock Text=" is smaller than " />
+                        <TextBlock Text="{Binding YCoord}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </StackPanel.Resources>
+            <Label Content="{StaticResource XBiggerThenY}" ContentTemplateSelector="{StaticResource myDataTemplateSelector}" />
+            <Label Content="{StaticResource YBiggerThenX}" ContentTemplateSelector="{StaticResource myDataTemplateSelector}" />
+            <Label DataContext="{StaticResource XBiggerThenY}">
+                <Label.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=XIsBiggerThanY}" Value="True">
+                                <Setter Property="Label.Template" Value="{StaticResource XCoordIsBiggerThenOrEqualToYCoordCtrl}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=XIsBiggerThanY}" Value="False">
+                                <Setter Property="Label.Template" Value="{StaticResource XCoordIsBiggerThenOrEqualToYCoordCtrl}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label Content="{StaticResource XBiggerThenY}">
+                <Label.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <!-- Triggers do not operate on Content, so no Templates are applied -->
+                            <DataTrigger Binding="{Binding Path=XIsBiggerThanY}" Value="True">
+                                <Setter Property="Label.Template" Value="{StaticResource XCoordIsBiggerThenOrEqualToYCoordCtrl}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=XIsBiggerThanY}" Value="False">
+                                <Setter Property="Label.Template" Value="{StaticResource XCoordIsBiggerThenOrEqualToYCoordCtrl}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label DataContext="{StaticResource XBiggerThenY}">
+                <Label.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <!-- ContentTemplates bind to properties of the Content and NOT the DataContext
+                            As a result, no values ar shown (but the Templates themselved are applied )-->
+                            <DataTrigger Binding="{Binding Path=XIsBiggerThanY}" Value="True">
+                                <Setter Property="Label.ContentTemplate" Value="{StaticResource XCoordIsBiggerThenOrEqualToYCoord}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=XIsBiggerThanY}" Value="False">
+                                <Setter Property="Label.ContentTemplate" Value="{StaticResource XCoordIsBiggerThenOrEqualToYCoord}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
         </StackPanel>
     </Grid>
 </Window>

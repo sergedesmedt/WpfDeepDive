@@ -13,8 +13,6 @@
                             <Button x:Name="cc1Button" Content="The button in the template" />
                             <!-- You cannot bind an event from a controltemplate -->
                             <!--<Button x:Name="cc1Button" Content="The button in the template" Click="Button_Click" />-->
-                            <!-- A contentpresenter only makes sense in a ContentControl derived class-->
-                            <!--<ContentPresenter />-->
                             <TextBlock Text="{TemplateBinding Text}" />
                         </StackPanel>
                     </Border>
@@ -32,7 +30,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel Orientation="Horizontal">
                             <Button x:Name="cc1Button" Content="The button in the template" />
-                            <!-- the content of out control will be displayed here -->
+                            <!-- the content of our control will be displayed here -->
                             <ContentPresenter />
                         </StackPanel>
                     </Border>

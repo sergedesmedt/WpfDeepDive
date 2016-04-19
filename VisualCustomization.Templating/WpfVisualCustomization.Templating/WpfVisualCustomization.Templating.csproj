@@ -54,6 +54,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EventsInResourceDictionary.xaml.cs">
+      <DependentUpon>EventsInResourceDictionary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventsInTemplatesWindow.xaml.cs">
+      <DependentUpon>EventsInTemplatesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HierarchicalDataTemplatesWindow.xaml.cs">
+      <DependentUpon>HierarchicalDataTemplatesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lvl1Data.cs" />
+    <Compile Include="Lvl2Data.cs" />
+    <Compile Include="MyDataTemplateSelector.cs" />
+    <Compile Include="TabControlBasedWindow.xaml.cs">
+      <DependentUpon>TabControlBasedWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TopLevelData.cs" />
+    <Compile Include="WindowWithButton.xaml.cs">
+      <DependentUpon>WindowWithButton.xaml</DependentUpon>
+    </Compile>
     <Page Include="ControlBasedWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,11 +97,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EventsInResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventsInTemplatesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HierarchicalDataTemplatesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ItemsControlBasedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TabControlBasedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowWithButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,6 +144,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OtherData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

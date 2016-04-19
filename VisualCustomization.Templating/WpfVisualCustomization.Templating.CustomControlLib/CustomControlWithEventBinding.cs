@@ -64,7 +64,7 @@ namespace WpfVisualCustomization.Templating.CustomControlLib
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Message from Button_Click",
+            MessageBoxResult result = MessageBox.Show("Message from Button_Click using PARTS",
                 "Message",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);

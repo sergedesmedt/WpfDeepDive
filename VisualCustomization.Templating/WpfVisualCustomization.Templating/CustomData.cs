@@ -12,5 +12,10 @@ namespace WpfVisualCustomization.Templating
         public int YCoord { get; set; }
         public int DataMember1 { get; set; }
         public string DataMember2 { get; set; }
+
+        public bool XIsBiggerThanY 
+        {
+            get { return XCoord >= YCoord; }
+        }
     }
 }

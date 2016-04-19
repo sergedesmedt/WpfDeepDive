@@ -30,7 +30,11 @@ namespace WpfVisualCustomization.Templating
             StandardItemsControl.ItemsSource = dataSource;
             StandardListView.ItemsSource = dataSource;
             ItemTemplatedListView.ItemsSource = dataSource;
-            TemplatedItemsControl1.ItemsSource = dataSource;
+            ResourceTemplatedListView.ItemsSource = dataSource;
+            TemplatedItemsControl0.ItemsSource = dataSource;
+            TemplatedItemsControl1a.ItemsSource = dataSource;
+            TemplatedItemsControl1b.ItemsSource = dataSource;
+            TemplatedItemsControl1c.ItemsSource = dataSource;
             TemplatedItemsControl2.ItemsSource = dataSource;
         }
     }

@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <!-- if you don't specify a ContentPresener, then nothing will be shown -->
+        <!-- if you don't specify a ContentPresenter, then nothing will be shown -->
         <ControlTemplate x:Key="templateWithNoContent" TargetType="{x:Type Button}">
             <Border Background="Red" />
         </ControlTemplate>
+        <!-- Ways of specifying the Content for the ContentPresenter -->
         <ControlTemplate x:Key="templateWithContentAndTargetType" TargetType="{x:Type Button}">
             <Border BorderBrush="Green" BorderThickness="5" >
                 <ContentPresenter />
@@ -17,6 +18,7 @@
                 <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
             </Border>
         </ControlTemplate>
+        <!-- Ways of binding to properties of the Templated Control -->
         <ControlTemplate x:Key="templateWithBinding" TargetType="{x:Type Button}">
             <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="5" >
                 <ContentPresenter />
@@ -46,13 +48,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <!-- no templates applied -->
         <Button Grid.Row="0" Content="A default button" />
         <Button Grid.Row="1" >
-            <StackPanel>
                 <TextBox Text="A button with some strange content" />
-            </StackPanel>
         </Button>
         <!-- We need a ContentPresenter in our template to be able to display something -->
         <Button Grid.Row="2" Content="A (wrongly) templated button" Template="{StaticResource ResourceKey=templateWithNoContent}" />
@@ -61,8 +63,55 @@
         <Button Grid.Row="5" Content="A templated button with binding No Value" Template="{StaticResource ResourceKey=templateWithBinding}" />
         <Button Grid.Row="6" Content="A templated button with binding and Value" BorderBrush="Brown" Template="{StaticResource ResourceKey=templateWithBinding}" />
         <Button Grid.Row="7" Content="A templated button with relative binding and Value" BorderBrush="Red" Template="{StaticResource ResourceKey=templateWithRelativeBinding}" />
-        <CustomControlLib:CustomControl Grid.Row="8" Text="Editbox with button" />
-        <CustomControlLib:CustomContentControl Grid.Row="9" Content="Editbox with button" />
-        <CustomControlLib:CustomControlWithEventBinding Grid.Row="10" Text="Editbox with button" />
+        <CustomControlLib:CustomControl Grid.Row="8" Text="Editbox with button in CustomControl" />
+        <CustomControlLib:CustomContentControl Grid.Row="9" Content="Editbox with button in CustomContentControl" />
+        <CustomControlLib:CustomControlWithEventBinding Grid.Row="10" Text="Editbox with button in CustomControlWithEventBinding" />
+        <Border Grid.Row="11">
+        <!-- How far so styles reach? Are they also applied in Templates? -->
+            <Border.Resources>
+                <Style TargetType="TextBox" >
+                    <Style.Setters>
+                        <Setter Property="Background" Value="Red" />
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Style.Setters>
+                        <Setter Property="Background" Value="Blue" />
+                    </Style.Setters>
+                </Style>
+                <Style x:Key="textboxWithKey" TargetType="TextBlock">
+                    <Style.Setters>
+                        <Setter Property="Background" Value="Green" />
+                    </Style.Setters>
+                </Style>
+            </Border.Resources>
+            <StackPanel>
+                <TextBox Text="Default text"/>
+                <Button>
+                    <TextBox Text="Textbox as content of button"/>
+                </Button>
+                <Button>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="textbox inside a ControlTemplate" />
+                                <TextBlock Grid.Column="1" Text="textblock inside a ControlTemplate" />
+                                <TextBlock Style="{StaticResource textboxWithKey}" Grid.Column="2" Text="textblock inside a ControlTemplate (with a key)" />
+                                <ContentPresenter Grid.Column="3" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Content>
+                        De content van de button
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -1,0 +1,118 @@
+﻿<Window x:Class="WpfVisualCustomization.Templating.HierarchicalDataTemplatesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfVisualCustomization.Templating"
+        Title="HierarchicalDataTemplatesWindow" Height="300" Width="300">
+    <Grid>
+        <StackPanel>
+            <TreeView x:Name="StandardTreeView" />
+            <TreeView x:Name="ItemTemplatedAttemptOneTreeView" >
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Background="Red" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <TreeView x:Name="ItemTemplatedAttemptTwoTreeView" >
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Ok, so we got our second level, however we're missing the collapse feature a treeview normally has-->
+                        <StackPanel>
+                            <TextBlock Background="Red" Text="{Binding Name}"/>
+                            <ListView ItemsSource="{Binding Lvl1Children}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <!-- Let us try this again with a HierarchicalDataTemplate: using this kind of datatemplate
+                allows us to specify the child property to use for showing the children-->
+            <TreeView x:Name="ItemTemplatedAttemptThreeTreeView" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                        <StackPanel>
+                            <TextBlock Background="Red" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <!-- The above ItemTemplatedAttemptThreeTreeView only shows the complete tree because we've bound the ItemsSource
+                of the HierarchicalDataTemplate to the Children property which exists on all levels 
+                If however we bind the Lvl1Children property, which only exists on the TopLvel class, the treeview will stop 
+                showing items at Level1-->
+            <TreeView x:Name="ItemTemplatedAttemptThreeFailTreeView" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Lvl1Children}">
+                        <StackPanel>
+                            <TextBlock Background="Red" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <TreeView x:Name="ItemTemplatedAttemptFour1TreeView" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Lvl1Children}">
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Path=Lvl2Children}">
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate >
+                                        <TextBlock Background="Azure" Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                                <StackPanel>
+                                    <TextBlock Background="Gainsboro" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                        <StackPanel>
+                            <TextBlock Background="Orange" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <TreeView x:Name="ItemTemplatedAttemptFour2TreeView" >
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type local:TopLevelData}"  ItemsSource="{Binding Path=Lvl1Children}">
+                        <StackPanel>
+                            <TextBlock Background="Red" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type local:Lvl1Data}"  ItemsSource="{Binding Path=Lvl2Children}">
+                        <StackPanel>
+                            <TextBlock Background="Green" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type local:Lvl2Data}" >
+                        <TextBlock Background="Yellow" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+            <!-- This will not work: you need to use HierarchicalDataTemplates !!! 
+                Level 1 and Level 2 data will not be shown 
+                The problem is that the treeview does not know what property of TopLevelData
+                represents the sublevel -->
+            <TreeView x:Name="ItemTemplatedAttemptFourAlternativeTreeView" >
+                <TreeView.Resources>
+                    <DataTemplate DataType="{x:Type local:TopLevelData}" >
+                        <StackPanel>
+                            <TextBlock Background="DarkRed" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type local:Lvl1Data}" >
+                        <StackPanel>
+                            <TextBlock Background="DarkGreen" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type local:Lvl2Data}" >
+                        <TextBlock Background="Orange" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+            <!-- This is all very well, but I want to change not only the way the data is shown, 
+                but also the way the navigation is shown 
+                For an excellent example of how to do this, you can have a look at Josh Smiths article
+                on Codeproject: http://www.codeproject.com/Articles/17379/Advanced-Custom-TreeView-Layout-in-WPF -->
+        </StackPanel>
+    </Grid>
+</Window>

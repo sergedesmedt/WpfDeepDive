@@ -24,6 +24,12 @@ namespace WpfVisualCustomization.Templating
             InitializeComponent();
         }
 
+        private void WindowWithButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowWithButton window = new WindowWithButton();
+            window.Show();
+        }
+
         private void ControlBasedTemplating_Click(object sender, RoutedEventArgs e)
         {
             ControlBasedWindow window = new ControlBasedWindow();
@@ -36,15 +42,32 @@ namespace WpfVisualCustomization.Templating
             window.Show();
         }
 
+        private void Events_Click(object sender, RoutedEventArgs e)
+        {
+            EventsInTemplatesWindow window = new EventsInTemplatesWindow();
+            window.Show();
+        }
+
         private void DataTemplates_Click(object sender, RoutedEventArgs e)
         {
             DataTemplatesWindow window = new DataTemplatesWindow();
             window.Show();
         }
 
+        private void HierarchicalDataTemplates_Click(object sender, RoutedEventArgs e) {
+            HierarchicalDataTemplatesWindow window = new HierarchicalDataTemplatesWindow();
+            window.Show();
+        }
+
         private void ItemsControlBasedTemplating_Click(object sender, RoutedEventArgs e)
         {
             ItemsControlBasedWindow window = new ItemsControlBasedWindow();
+            window.Show();
+        }
+
+        private void TabControlBasedTemplating_Click(object sender, RoutedEventArgs e)
+        {
+            TabControlBasedWindow window = new TabControlBasedWindow();
             window.Show();
         }
 

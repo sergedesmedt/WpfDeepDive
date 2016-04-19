@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfVisualCustomization.Templating.TabControlBasedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfVisualCustomization.Templating"
+        Title="TabControlBasedWindow" Height="300" Width="300">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:CustomData}">
+            <StackPanel>
+                <TextBlock Background="Green" Text="{Binding DataMember1}"/>
+                <TextBlock Background="Green" Text="{Binding DataMember2}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <TabControl x:Name="StandardTabControl" />
+    </Grid>
+</Window>
